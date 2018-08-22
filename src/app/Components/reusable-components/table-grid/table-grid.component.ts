@@ -1,18 +1,19 @@
 import { Component, OnInit, OnChanges, SimpleChange, Input, Renderer, Output, EventEmitter  } from '@angular/core';
 import { faSort, faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
+import {Collection} from '../../../Interfaces/collection';
+import {StoresCollection} from '../../../Services/collection.service';
+
 declare var $: any;
 @Component({
   selector: 'table-grid',
   templateUrl: './table-grid.component.html',
-  styleUrls: ['./table-grid.component.css']
+  styleUrls: ['./table-grid.component.css'],
+  providers:[{provide: Collection,useClass:StoresCollection}]
 })
 export class TableGridComponent implements OnInit, OnChanges {
   @Input('tableData')tableData;
-  @Input('columnNames')tableHeadingNames;
   @Input('config')tableConfig;
-  @Input('filterData')filterData;
-  @Output('lazyLoadData') lazyLoadData = new EventEmitter<any>();
-  @Output('sortData') sortData = new EventEmitter<any>();
+  @Input('filterData')filterData;s
   public columnWidth=[];
   public start;
   public pressed=false;
@@ -29,7 +30,7 @@ export class TableGridComponent implements OnInit, OnChanges {
   public faSort = faSort;
   public faSortDown = faCaretDown;
   public faSortUp = faCaretUp;
-  constructor(private renderer: Renderer) { 
+  constructor(private renderer: Renderer,private collection:Collection) { 
   }
 
   ngOnInit() {
@@ -39,9 +40,6 @@ export class TableGridComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes:{[propKey: string]:SimpleChange}){
-    if(changes.columnNames && changes.columnNames.currentValue!=undefined){
-      this.updateColumnNames(changes.columnNames.currentValue);
-    }
     if(changes.tableData && changes.tableData.currentValue!=undefined){
       this.updateData(changes.tableData.currentValue);
     }
@@ -65,21 +63,18 @@ export class TableGridComponent implements OnInit, OnChanges {
     this.tableConfig.resize=true;// boolean
     if(!this.tableConfig.sort)
     this.tableConfig.sort=true;// boolean
-    
-  }
-
-  updateColumnNames(res){
-    this.tableHeadingNames=res;
+    if(!this.tableConfig.isFiltered)
+    this.tableConfig.isFiltered=false;// boolean
+    if(this.columnWidth.length==0&&this.tableConfig.columnNames){
+      for(let i=0;i<this.tableConfig.columnNames.length;i++){
+        this.columnWidth.push(($('.tableWrapper').width()-17)/this.tableConfig.columnNames.length); 
+      }
+    }
   }
   
   updateData(res){
-      this.lazyLoad=false; 
-      this._tableData=res;  
-      if(this.columnWidth.length==0&&this.tableHeadingNames){
-        for(let i=0;i<this.tableHeadingNames.length;i++){
-          this.columnWidth.push(($('.tableWrapper').width()-17)/this.tableHeadingNames.length); 
-        }
-      }
+    this.lazyLoad=false; 
+    this._tableData=res;  
   }
   
   onMouseDown(event){
@@ -105,7 +100,7 @@ export class TableGridComponent implements OnInit, OnChanges {
             rightWidth = leftWidth + rightWidth - minWidth;
             leftWidth = minWidth;
           }
-          if($('.table-header').width()-17<=$('.tableWrapper').width()){
+          if($('.table-header').width()<$('.tableWrapper').width()){
             this.columnWidth[this.rightColIndex] = rightWidth;
           }
           this.columnWidth[this.leftColIndex]=leftWidth;          
@@ -121,7 +116,7 @@ export class TableGridComponent implements OnInit, OnChanges {
   
     handleScroll() {
     this.lazyLoad=true;
-    this.lazyLoadData.emit(this.lazyLoad);
+    this.lazyLoadData(this.lazyLoad);
     }
     
     sortBy(heading, order, i) {
@@ -129,6 +124,25 @@ export class TableGridComponent implements OnInit, OnChanges {
       this.sortingOrder = order;
       localStorage.setItem('selectedColumn',this.selectedSortColumn);
       localStorage.setItem('sortingOrder',this.sortingOrder);
-      this.sortData.emit({column:heading,order:order});
+      this.sortData({column:heading,order:order});
+    }
+
+    lazyLoadData(event){
+      if(event){
+        this.collection.loadNext(this.tableConfig.isFiltered,this.tableConfig.filter).subscribe(res=>{
+          this._tableData=this._tableData.concat(res);
+          if(this._tableData.length>0)
+          this.collection.updateURLParams();
+        });
+      }
+    }
+  
+    sortData(event){
+      this.collection.sort(event.column,event.order,this.tableConfig.isFiltered,this.tableConfig.filter).subscribe(res=>{
+        this._tableData=[];
+        this._tableData=this._tableData.concat(res);
+        if(this._tableData.length>0)
+          this.collection.updateURLParams();
+      });
     }
 }

@@ -56,7 +56,7 @@ export class FilterComponent implements OnInit,OnChanges {
         this.renderer.appendChild(item,itemValue);
         this.renderer.listen(item, 'click', () => {
           this.selectedKey = item.innerText;
-          this.makeTag();
+          this.makeTag(event);
         });
         this.renderer.appendChild(this.ul.nativeElement,item);
     }
@@ -71,7 +71,8 @@ export class FilterComponent implements OnInit,OnChanges {
     }
   }
 
-  makeTag(){
+  makeTag(event){
+    console.log(event);
     //making suggestion list empty
     this.ul.nativeElement.innerHTML='';
     //making input empty
@@ -114,7 +115,7 @@ export class FilterComponent implements OnInit,OnChanges {
     this.selectedSubkey = event.target.value;
     if(this.selectedSubkey=="")
       this.selectedSubkey="empty";
-    if(event.keyCode==9){
+    if(event.keyCode==9||event.keyCode == 13){
       //createEntry
       if(this.createEntry()){
         //removing input box
