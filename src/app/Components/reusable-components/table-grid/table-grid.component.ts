@@ -100,7 +100,7 @@ export class TableGridComponent implements OnInit, OnChanges {
             rightWidth = leftWidth + rightWidth - minWidth;
             leftWidth = minWidth;
           }
-          if($('.table-header').width()<$('.tableWrapper').width()){
+          if($('.table-header').width()-18<$('.tableWrapper').width()&&rightWidth>=this.columnWidth[this.rightColIndex]){
             this.columnWidth[this.rightColIndex] = rightWidth;
           }
           this.columnWidth[this.leftColIndex]=leftWidth;          

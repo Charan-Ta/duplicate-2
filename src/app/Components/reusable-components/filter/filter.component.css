@@ -33,6 +33,12 @@
     font-weight: normal;
     white-space: nowrap;
   }
+
+  .tag > .subkey {
+    font-weight: normal;
+    white-space: nowrap;
+    cursor: pointer;
+  }
   
   .tag > .close-btn {
     width: 14px;
@@ -76,6 +82,11 @@
     font-size: 17px;
   }
   
+  .suggestion-box > .selected {
+    color: orange;
+    outline: none;
+  }
+
   .suggestion-box > li:hover {
     color: orange;
   }
