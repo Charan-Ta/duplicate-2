@@ -24,6 +24,7 @@ export class FilterComponent implements OnInit,OnChanges {
   public closeBtnIcon;
   public rect;
   public outputObject={};
+  public editedIndex;
   @ViewChild('suggestion_box')ul:ElementRef;
   @ViewChild('tag_list')tagList:ElementRef;
   @ViewChild('main_input')mainInput:ElementRef;
@@ -55,6 +56,7 @@ export class FilterComponent implements OnInit,OnChanges {
       this.makeTag();
     }
     else if(event.keyCode === 40){
+      event.preventDefault();
       liSelected.setAttribute('tabIndex',this.selectedLi);
       liSelected.focus();
       liSelected.classList.remove('selected');
@@ -67,6 +69,7 @@ export class FilterComponent implements OnInit,OnChanges {
       liSelected.classList.add('selected');
       liSelected.focus();
     }else if(event.keyCode === 38){
+      event.preventDefault();
       liSelected.setAttribute('tabIndex',this.selectedLi);
       liSelected.focus();
       liSelected.classList.remove('selected');
@@ -78,6 +81,8 @@ export class FilterComponent implements OnInit,OnChanges {
       liSelected.setAttribute('tabIndex',this.selectedLi);
       liSelected.classList.add('selected');
       liSelected.focus();
+    }else{
+      this.mainInput.nativeElement.focus();
     }
   }
 
@@ -178,38 +183,41 @@ export class FilterComponent implements OnInit,OnChanges {
         this.renderer.appendChild(this.subkeyItem,this.subkeyItemValue);
         //appending selected subkey to the created tag
         this.renderer.appendChild(this.tagItem,this.subkeyItem);
-        //adding tag li to ul      
+        //adding tag li to ul
+        if(this.editedIndex==null)      
         this.renderer.appendChild(this.tagList.nativeElement,this.tagItem);
+        else
+        this.editedIndex=null;
       }else{
         this.removeTag(event);
       }
-      this.mainInput.nativeElement.focus();
+      this.selectedKey=null;
+      this.selectedSubkey=null;
+      this.selectedLi=0;
+      this.mainInput.nativeElement.removeAttribute('disabled');
+      this.ul.nativeElement.style.display='';
+      if(event.keyCode==13){
+        this.mainInput.nativeElement.focus();
+      }
     }else{
       return;
     }
-    this.selectedKey=null;
-    this.selectedSubkey=null;
-    this.mainInput.nativeElement.removeAttribute('disabled');
-    this.ul.nativeElement.style.display='none';
-    this.selectedLi=0;
   }
-
+  
   editTag(event){
     let subkey = event.target.innerText;
     let key = event.target.parentNode.children[1].innerText;
     key=key.substr(0,key.length-1);
     this.selectedKey=key;
-    this.outputObject[key].splice(this.outputObject[key].indexOf(subkey),1);
-    if(this.outputObject[key].length==0){
-      delete this.outputObject[key];
-    }
+    this.editedIndex=this.outputObject[key].indexOf(subkey);
     //adding input for subkey
     this.subKeyInputItem = this.renderer.createElement('input');
     this.renderer.listen(this.subKeyInputItem, 'keydown', (event) => {
       this.completeTag(event);
     });
     this.renderer.setAttribute(this.subKeyInputItem,'value',subkey);
-    this.renderer.appendChild(event.target.parentNode,this.subKeyInputItem);
+    this.tagItem = event.target.parentNode;
+    this.renderer.appendChild(this.tagItem,this.subKeyInputItem);
     event.target.style.display = "none";
     this.subKeyInputItem.focus();
   }
@@ -219,14 +227,20 @@ export class FilterComponent implements OnInit,OnChanges {
       //create a new entry
       this.outputObject[this.selectedKey]=[];
       this.outputObject[this.selectedKey].push(this.selectedSubkey);
-      console.log(this.outputObject);
       this.output.emit(this.outputObject);
       return true;
     }else{
       if(this.outputObject[this.selectedKey].indexOf(this.selectedSubkey)>=0)
-        return false;
-      else{
+      return false;
+      else if(this.editedIndex==null){
         this.outputObject[this.selectedKey].push(this.selectedSubkey);
+        console.log(this.outputObject);
+        this.output.emit(this.outputObject);
+        return true;
+      }
+      else{
+        this.outputObject[this.selectedKey][this.editedIndex]=this.selectedSubkey;
+        console.log(this.outputObject);
         this.output.emit(this.outputObject);
         return true;
       }
