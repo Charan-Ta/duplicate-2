@@ -6,48 +6,36 @@ import {StoresCollection} from '../../../Services/collection.service';
   selector: 'app-allstores',
   templateUrl: './allstores.component.html',
   styleUrls: ['./allstores.component.css'],
-  providers:[{provide: Collection,useClass:StoresCollection}]
+  providers:[{provide:Collection,useClass:StoresCollection}]
 })
 export class AllstoresComponent implements OnInit {
-  public parameters;
-  public tableData=[];
   public tableConfig;
+  public storesCollection;
   constructor(private collection:Collection) {}
 
   ngOnInit() {
-    this.collection.getURLParams();
-    this.collection.load().subscribe(res=>{
-      this.processData(res);
-    });
+    this.storesCollection = this.collection;
+    this.setTableConfig();
   }
   
-  processData(res){
-    this.tableData=res;
-    if(this.tableData){
-      let tableHeadingNames = Object.keys(this.tableData[1]);
-      tableHeadingNames = tableHeadingNames.splice(1, tableHeadingNames.length - 6);
+  setTableConfig(){   
       this.tableConfig = {
-        tableHeight: 300,//in px
-        tableWidth: 100,// in %
-        cellPadding: 15,// in px
-        cellMinWidth: 100,// in px
-        resize: true,
-        sort: true,
-        isFiltered: false,
-        columnNames:tableHeadingNames
+        tableHeight: 300,//in px(optional)
+        tableWidth: 100,// in %(optional)
+        cellPadding: 15,// in px(optional)
+        cellMinWidth: 100,// in px(optional)
+        resize: true,//(optional)
+        sort: true,//(optional)
+        isFiltered: false,//(optional)
+        filter:null,//(optional)
+        columnNames:['StoreName','AppleID','City','ContractID','Country']//(mandatory)
       }
-    }
   }
 
   filterData(event){
       this.tableConfig.isFiltered=true;
       this.tableConfig.filter=event;
-      this.collection.filter(event).subscribe(res=>{
-        this.tableData=[];
-        this.tableData=this.tableData.concat(res);
-        if(this.tableData.length>0)
-          this.collection.updateURLParams();
-      });
+      this.tableConfig = Object.assign({}, this.tableConfig);
   }
   
 }

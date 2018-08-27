@@ -80,3 +80,7 @@
 .table-body {
     overflow-y: auto;
 }
+
+.table-body::-webkit-scrollbar {
+  display: none;
+}

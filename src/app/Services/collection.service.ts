@@ -27,11 +27,13 @@ export class StoresCollection extends Collection {
   }
 
   load():Observable<any>{
+    this.getURLParams();
     this.makeURL();
     return this.http.get(this._url);
   }
 
   loadNext(isFiltered,filter):Observable<any>{
+      this.getURLParams();
       if(!this.parameters.sortBy&&!this.parameters.sortDir)
       this.parameters={limit:50,startFrom:Number(this.parameters['startFrom'])+Number(this.parameters['limit'])};
       else
@@ -57,6 +59,7 @@ export class StoresCollection extends Collection {
   }
 
   filter(filter):Observable<any>{
+    this.getURLParams();
     if(!this.parameters.sortBy&&!this.parameters.sortDir)
     this.parameters={limit:50,startFrom:0};
     else
