@@ -25,6 +25,8 @@ export class FilterComponent implements OnInit,OnChanges {
   public rect;
   public outputObject={};
   public editedIndex;
+  public idleTime;
+  public idleInterval;
   @ViewChild('suggestion_box')ul:ElementRef;
   @ViewChild('tag_list')tagList:ElementRef;
   @ViewChild('main_input')mainInput:ElementRef;
@@ -35,20 +37,21 @@ export class FilterComponent implements OnInit,OnChanges {
   ngOnInit() {
   }
 
+  
   ngOnChanges(changes:{[propKey: string]:SimpleChange}){
     if(changes.autosuggestData && changes.autosuggestData.currentValue!=undefined){
       this.updateData(changes.autosuggestData.currentValue);
     }
   }
-
+  
   updateData(res){
     this.autosuggestData=res;
     this.renderer.listen(this.mainInput.nativeElement,'keydown',(event)=>{
       this.selectKey(event);
     });
   }
-
-
+  
+  
   selectKey(event){
     var liSelected=this.li[this.selectedLi];
     if(event.keyCode==13){
@@ -56,6 +59,7 @@ export class FilterComponent implements OnInit,OnChanges {
       this.makeTag();
     }
     else if(event.keyCode === 40){
+      this.idleTime=0;
       event.preventDefault();
       liSelected.setAttribute('tabIndex',this.selectedLi);
       liSelected.focus();
@@ -69,6 +73,7 @@ export class FilterComponent implements OnInit,OnChanges {
       liSelected.classList.add('selected');
       liSelected.focus();
     }else if(event.keyCode === 38){
+      this.idleTime=0;
       event.preventDefault();
       liSelected.setAttribute('tabIndex',this.selectedLi);
       liSelected.focus();
@@ -82,29 +87,38 @@ export class FilterComponent implements OnInit,OnChanges {
       liSelected.classList.add('selected');
       liSelected.focus();
     }else{
+      this.idleTime=0;
       this.mainInput.nativeElement.focus();
     }
   }
-
+  
+  timerIncrement(){
+    this.idleTime += 1;
+    if(this.idleTime>4){
+      this.selectedLi=0;
+      this.ul.nativeElement.style.display='none';
+    }
+  }
+  
   showSuggestions(event){
     this.ul.nativeElement.innerHTML='';
-    this.ul.nativeElement.style.display='block';
+    this.ul.nativeElement.style.display='';
     this.input = event.target;
     this.filter = event.target.value.toLowerCase();
     this.rect = this.mainInput.nativeElement.getBoundingClientRect();
     for (let i = 0; i < this.autosuggestData.length; i++) {
       //creating a list of keys for autosuggest
-        let item = this.renderer.createElement('li');
-        let itemValue = this.renderer.createText(this.autosuggestData[i]);
-        this.renderer.appendChild(item,itemValue);
-        this.renderer.listen(item, 'click', () => {
-          this.selectedKey=item.innerText;
-          this.makeTag();
-        });
-        this.renderer.listen(item, 'keydown', (event) => {
-          this.selectKey(event);
-        });
-        this.renderer.appendChild(this.ul.nativeElement,item);
+      let item = this.renderer.createElement('li');
+      let itemValue = this.renderer.createText(this.autosuggestData[i]);
+      this.renderer.appendChild(item,itemValue);
+      this.renderer.listen(item, 'click', () => {
+        this.selectedKey=item.innerText;
+        this.makeTag();
+      });
+      this.renderer.listen(item, 'keydown', (event) => {
+        this.selectKey(event);
+      });
+      this.renderer.appendChild(this.ul.nativeElement,item);
     }
     // Loop through all list items, and hide those who don't match the search query
     let liCopy =this.ul.nativeElement.getElementsByTagName("li");
@@ -121,11 +135,18 @@ export class FilterComponent implements OnInit,OnChanges {
     for(let i = 0; i < this.li.length; i++){
       this.renderer.appendChild(this.ul.nativeElement,this.li[i]);
     }
-
     this.li[0].classList.add('selected');
+    
+    //make idle time 0 and clear interval    
+    this.idleTime=0;    
+    clearInterval(this.idleInterval);
+    this.idleInterval = setInterval(() => { this.timerIncrement(); }, 1000);
   }
   
   makeTag(){
+      //make idle time 0 and clear interval
+      this.idleTime =0;
+      clearInterval(this.idleInterval);
       //making suggestion list empty
       this.ul.nativeElement.innerHTML='';
       //making input empty
@@ -168,10 +189,11 @@ export class FilterComponent implements OnInit,OnChanges {
     this.selectedSubkey = event.target.value;
     if(this.selectedSubkey=="")
       this.selectedSubkey="empty";
-    if(event.keyCode==9||event.keyCode == 13){
+    if(event.keyCode==9||event.keyCode == 13 || event.type=='blur'){
       //createEntry
       if(this.createEntry()){
         //removing input box
+        console.log(this.tagItem);
         this.renderer.removeChild(this.tagItem,this.subKeyInputItem);
         //adding subkey
         this.subkeyItem = this.renderer.createElement('span');
@@ -215,6 +237,9 @@ export class FilterComponent implements OnInit,OnChanges {
     this.renderer.listen(this.subKeyInputItem, 'keydown', (event) => {
       this.completeTag(event);
     });
+    this.renderer.listen(this.subKeyInputItem, 'blur', (event) => {
+      this.completeTag(event);
+    });
     this.renderer.setAttribute(this.subKeyInputItem,'value',subkey);
     this.tagItem = event.target.parentNode;
     this.renderer.appendChild(this.tagItem,this.subKeyInputItem);
@@ -230,7 +255,7 @@ export class FilterComponent implements OnInit,OnChanges {
       this.output.emit(this.outputObject);
       return true;
     }else{
-      if(this.outputObject[this.selectedKey].indexOf(this.selectedSubkey)>=0)
+      if(this.outputObject[this.selectedKey].indexOf(this.selectedSubkey)>=0&&this.editedIndex==null)
       return false;
       else if(this.editedIndex==null){
         this.outputObject[this.selectedKey].push(this.selectedSubkey);

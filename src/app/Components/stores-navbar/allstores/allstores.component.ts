@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import {Collection} from '../../../Interfaces/collection';
+import {StoreTemplate} from '../../../Interfaces/templates';
 import {StoresCollection} from '../../../Services/collection.service';
 
 @Component({
@@ -28,7 +29,7 @@ export class AllstoresComponent implements OnInit {
         sort: true,//(optional)
         isFiltered: false,//(optional)
         filter:null,//(optional)
-        columnNames:['StoreName','AppleID','City','ContractID','Country']//(mandatory)
+        columnNames:['StoreName','AppleID','City','ContractID','Country','District']//(mandatory)
       }
   }
 
