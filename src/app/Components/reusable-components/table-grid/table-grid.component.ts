@@ -63,8 +63,10 @@ export class TableGridComponent implements OnInit, OnChanges {
   setTableConfig(res){
     this.tableConfig=res;
     //Setting Default Parameters if the user hasn't passed any of the following
-    if(!this.tableConfig.tableHeight)
-    this.tableConfig.tableHeight=300;//in px
+    if(!this.tableConfig.tableHeadingHeight)
+    this.tableConfig.tableHeadingHeight=10;//in %
+    if(!this.tableConfig.tableBodyHeight)
+    this.tableConfig.tableBodyHeight=90;//in %
     if(!this.tableConfig.tableWidth)
     this.tableConfig.tableWidth=100;//in %
     if(!this.tableConfig.cellPadding)
@@ -121,7 +123,7 @@ export class TableGridComponent implements OnInit, OnChanges {
             rightWidth = leftWidth + rightWidth - minWidth;
             leftWidth = minWidth;
           }
-          if($('.table-header').width()<$('.tableWrapper').width()&&leftWidth<this.columnWidth[this.leftColIndex]){
+          if($('.table-header').width()<=$('.tableWrapper').width()&&leftWidth<this.columnWidth[this.leftColIndex]){
             this.columnWidth[this.rightColIndex] = rightWidth;
           }
           this.columnWidth[this.leftColIndex]=leftWidth;          

@@ -1,18 +1,10 @@
 .tableWrapper{
     display: block;
     overflow-x:auto;
+    overflow-y: hidden;
 }
-.divTable {
-    display: table;
-    border-radius: 4px;
-}
-
-.divTableBody {
-  display: block;
-}
-
 .divTableRow {
-    display: flex;
+    display:inline-flex;
 }
 
 .divTableHeading {

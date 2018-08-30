@@ -27,6 +27,7 @@ export class FilterComponent implements OnInit,OnChanges {
   public editedIndex;
   public idleTime;
   public idleInterval;
+  public selectedTagIndex;
   @ViewChild('suggestion_box')ul:ElementRef;
   @ViewChild('tag_list')tagList:ElementRef;
   @ViewChild('main_input')mainInput:ElementRef;
@@ -36,7 +37,8 @@ export class FilterComponent implements OnInit,OnChanges {
 
   ngOnInit() {
   }
-
+  
+  
   
   ngOnChanges(changes:{[propKey: string]:SimpleChange}){
     if(changes.autosuggestData && changes.autosuggestData.currentValue!=undefined){
@@ -44,12 +46,16 @@ export class FilterComponent implements OnInit,OnChanges {
     }
   }
   
+  
+  
+  
   updateData(res){
     this.autosuggestData=res;
     this.renderer.listen(this.mainInput.nativeElement,'keydown',(event)=>{
       this.selectKey(event);
     });
   }
+  
   
   
   selectKey(event){
@@ -86,11 +92,19 @@ export class FilterComponent implements OnInit,OnChanges {
       liSelected.setAttribute('tabIndex',this.selectedLi);
       liSelected.classList.add('selected');
       liSelected.focus();
-    }else{
+    }else if(event.shiftKey && event.keyCode == 9) { 
+      event.preventDefault();
+      this.selectedTagIndex = this.tagList.nativeElement.children.length-1;
+      this.editTag(this.tagList.nativeElement.lastChild.lastChild);
+    }
+    else{
       this.idleTime=0;
       this.mainInput.nativeElement.focus();
     }
   }
+  
+  
+  
   
   timerIncrement(){
     this.idleTime += 1;
@@ -99,6 +113,9 @@ export class FilterComponent implements OnInit,OnChanges {
       this.ul.nativeElement.style.display='none';
     }
   }
+  
+  
+  
   
   showSuggestions(event){
     this.ul.nativeElement.innerHTML='';
@@ -130,7 +147,6 @@ export class FilterComponent implements OnInit,OnChanges {
         this.li.splice(i,1);
       }
     }
-
     this.ul.nativeElement.innerHTML='';
     for(let i = 0; i < this.li.length; i++){
       this.renderer.appendChild(this.ul.nativeElement,this.li[i]);
@@ -142,6 +158,9 @@ export class FilterComponent implements OnInit,OnChanges {
     clearInterval(this.idleInterval);
     this.idleInterval = setInterval(() => { this.timerIncrement(); }, 1000);
   }
+  
+  
+  
   
   makeTag(){
       //make idle time 0 and clear interval
@@ -172,6 +191,11 @@ export class FilterComponent implements OnInit,OnChanges {
       //adding input for subkey
       this.subKeyInputItem = this.renderer.createElement('input');
       this.renderer.listen(this.subKeyInputItem, 'keydown', (event) => {
+        if(event.which == 13){
+          this.subKeyInputItem.blur();    
+        }
+      });
+      this.renderer.listen(this.subKeyInputItem, 'focusout', (event) => {
         this.completeTag(event);
       });
       //appending close button,selected key, input to the tag li
@@ -185,67 +209,90 @@ export class FilterComponent implements OnInit,OnChanges {
   }
 
 
+  
   completeTag(event){
     this.selectedSubkey = event.target.value;
     if(this.selectedSubkey=="")
       this.selectedSubkey="empty";
-    if(event.keyCode==9||event.keyCode == 13 || event.type=='blur'){
-      //createEntry
-      if(this.createEntry()){
-        //removing input box
-        console.log(this.tagItem);
-        this.renderer.removeChild(this.tagItem,this.subKeyInputItem);
-        //adding subkey
-        this.subkeyItem = this.renderer.createElement('span');
-        this.renderer.addClass(this.subkeyItem,'subkey');
-        this.subkeyItemValue = this.renderer.createText(this.selectedSubkey);
-        this.renderer.listen(this.subkeyItem,'click',(event)=>{
-          this.editTag(event);
-        });
-        this.renderer.appendChild(this.subkeyItem,this.subkeyItemValue);
-        //appending selected subkey to the created tag
-        this.renderer.appendChild(this.tagItem,this.subkeyItem);
-        //adding tag li to ul
-        if(this.editedIndex==null)      
-        this.renderer.appendChild(this.tagList.nativeElement,this.tagItem);
-        else
-        this.editedIndex=null;
-      }else{
-        this.removeTag(event);
-      }
-      this.selectedKey=null;
-      this.selectedSubkey=null;
-      this.selectedLi=0;
-      this.mainInput.nativeElement.removeAttribute('disabled');
-      this.ul.nativeElement.style.display='';
-      if(event.keyCode==13){
-        this.mainInput.nativeElement.focus();
-      }
-    }else{
+    if(event.type=='focusout'){
+      this.processTag();
+    }
+    else{
       return;
     }
   }
+
   
-  editTag(event){
-    let subkey = event.target.innerText;
-    let key = event.target.parentNode.children[1].innerText;
+  
+  
+  processTag(){
+     //createEntry
+     if(this.createEntry()){
+      //removing input box
+      this.renderer.removeChild(this.tagItem,this.subKeyInputItem);
+      //adding subkey
+      this.subkeyItem = this.renderer.createElement('span');
+      this.renderer.addClass(this.subkeyItem,'subkey');
+      this.subkeyItemValue = this.renderer.createText(this.selectedSubkey);
+      this.renderer.listen(this.subkeyItem,'click',(event)=>{
+        this.editTag(event.target);
+      });
+      this.renderer.appendChild(this.subkeyItem,this.subkeyItemValue);
+      //appending selected subkey to the created tag
+      this.renderer.appendChild(this.tagItem,this.subkeyItem);
+      //adding tag li to ul
+      if(this.editedIndex==null)      
+      this.renderer.appendChild(this.tagList.nativeElement,this.tagItem);
+      else
+      this.editedIndex=null;
+    }else{
+      this.removeTag(event);
+    }
+    this.selectedKey=null;
+    this.selectedSubkey=null;
+    this.selectedLi=0;
+    this.mainInput.nativeElement.removeAttribute('disabled');
+    this.ul.nativeElement.style.display='';
+    this.mainInput.nativeElement.focus();
+  }
+  
+  
+  
+  
+  editTag(target){
+    let subkey = target.innerText;
+    let key = target.parentNode.children[1].innerText;
     key=key.substr(0,key.length-1);
     this.selectedKey=key;
     this.editedIndex=this.outputObject[key].indexOf(subkey);
     //adding input for subkey
     this.subKeyInputItem = this.renderer.createElement('input');
     this.renderer.listen(this.subKeyInputItem, 'keydown', (event) => {
-      this.completeTag(event);
+      if(event.which == 13){
+        this.subKeyInputItem.blur();    
+      } else if(event.shiftKey&&event.keyCode==9){
+        event.preventDefault();
+        this.subKeyInputItem.blur();  
+        this.selectedTagIndex--;
+        if(this.selectedTagIndex<0){
+          this.selectedTagIndex = this.tagList.nativeElement.children.length-1;
+        }
+        this.editTag(this.tagList.nativeElement.children[this.selectedTagIndex].lastChild);
+      }
     });
-    this.renderer.listen(this.subKeyInputItem, 'blur', (event) => {
+    this.renderer.listen(this.subKeyInputItem, 'focusout', (event) => {
       this.completeTag(event);
     });
     this.renderer.setAttribute(this.subKeyInputItem,'value',subkey);
-    this.tagItem = event.target.parentNode;
+    this.tagItem = target.parentNode;
     this.renderer.appendChild(this.tagItem,this.subKeyInputItem);
-    event.target.style.display = "none";
+    target.style.display = "none";
     this.subKeyInputItem.focus();
   }
+  
+  
+  
+  
   
   createEntry(){
     if(Object.keys(this.outputObject).indexOf(this.selectedKey)<0){
@@ -259,18 +306,19 @@ export class FilterComponent implements OnInit,OnChanges {
       return false;
       else if(this.editedIndex==null){
         this.outputObject[this.selectedKey].push(this.selectedSubkey);
-        console.log(this.outputObject);
         this.output.emit(this.outputObject);
         return true;
       }
       else{
         this.outputObject[this.selectedKey][this.editedIndex]=this.selectedSubkey;
-        console.log(this.outputObject);
         this.output.emit(this.outputObject);
         return true;
       }
     }
   }
+  
+  
+  
   
   removeTag(event){
     event.target.parentNode.style.display = "none";

@@ -2,5 +2,7 @@
 <input class="navbar-two-input allstore-search" placeholder="Select Category" style="float: right;" />
 <div class="content-wrapper">
     <input-filter [input]="tableConfig?.columnNames" (output)="filterData($event)"></input-filter>
-    <table-grid [collection]="storesCollection"  [config]="tableConfig"></table-grid>
+    <div class="grid">
+        <table-grid [collection]="storesCollection"  [config]="tableConfig"></table-grid>
+    </div>
 </div>

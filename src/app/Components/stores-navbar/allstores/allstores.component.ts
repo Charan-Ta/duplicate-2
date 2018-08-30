@@ -21,7 +21,9 @@ export class AllstoresComponent implements OnInit {
   
   setTableConfig(){   
       this.tableConfig = {
-        tableHeight: 300,//in px(optional)
+        tableHeight: 100,//in %(optional)
+        tableHeadingHeight: 10,//in %(optional)
+        tableBodyHeight: 90,//in %(optional)
         tableWidth: 100,// in %(optional)
         cellPadding: 15,// in px(optional)
         cellMinWidth: 100,// in px(optional)

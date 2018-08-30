@@ -1,7 +1,5 @@
-<div class="tableWrapper" [style.width.%]="tableConfig?.tableWidth">
-  <div class="divTable">
-    <div class="divTableBody">
-        <div class="divTableRow table-header">
+<div class="tableWrapper" [style.width.%]="tableConfig?.tableWidth" [style.height.%]="tableConfig?.tableHeight">
+        <div class="divTableRow table-header" [style.height.%]="tableConfig?.tableHeadingHeight">
          <div *ngFor="let heading of tableConfig?.columnNames; let i=index; " style="display: flex;">
            <div class="divTableHead divTableHeading" [style.width.px]="columnWidth[i]" [style.minWidth.px]="tableConfig?.cellMinWidth" [style.padding.px]="tableConfig?.cellPadding">
                <span>{{ heading }}</span>
@@ -23,7 +21,7 @@
             </div>
          </div> 
         </div>
-        <div class="table-body" [style.height.px]="tableConfig?.tableHeight" infiniteScroll
+        <div class="table-body" [style.height.%]="tableConfig?.tableBodyHeight" infiniteScroll
 		    [infiniteScrollDistance]="2"
 		    [infiniteScrollThrottle]="500"
         (scrolled)="handleScroll()"
@@ -34,7 +32,5 @@
         </div>
         </div>
     </div>
-    </div>
-  </div>
 </div>
 <p *ngIf="_tableData">Total Results : {{_tableData.length}}</p>
