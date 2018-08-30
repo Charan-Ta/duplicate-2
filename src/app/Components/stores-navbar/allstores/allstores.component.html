@@ -1,7 +1,7 @@
 <h3 id="allstores-title">All Stores</h3>
 <input class="navbar-two-input allstore-search" placeholder="Select Category" style="float: right;" />
 <div class="content-wrapper">
-    <input-filter [input]="tableConfig?.columnNames" (output)="filterData($event)"></input-filter>
+    <input-filter [input]="filterConfig" (output)="filterData($event)"></input-filter>
     <div class="grid">
         <table-grid [collection]="storesCollection"  [config]="tableConfig"></table-grid>
     </div>
