@@ -37,7 +37,7 @@ export class TableGridComponent implements OnInit, OnChanges {
     if(localStorage.getItem('selectedColumn')&& localStorage.getItem('sortingOrder')){
       this.sortingOrder=localStorage.getItem('sortingOrder');
       this.selectedSortColumn=localStorage.getItem('selectedColumn');
-      this.sortData({column:this.tableConfig.columnNames[this.selectedSortColumn],order:this.sortingOrder});
+      this.sortData({column:this.tableConfig.columnNames[this.selectedSortColumn].name,order:this.sortingOrder});
     }
   }
 
@@ -85,11 +85,6 @@ export class TableGridComponent implements OnInit, OnChanges {
   updateData(res){
     this.lazyLoad=false; 
     this._tableData=res;
-    if(this._tableData&&this.tableConfig&&this.columnWidth.length==0){
-      this.tableConfig.columnNames = Object.keys(this._tableData[1]);
-      this.tableConfig.columnNames = this.tableConfig.columnNames.splice(1, this.tableConfig.columnNames.length - 6);
-      this.setInitialColumnWidth();  
-    }
   }
 
   setInitialColumnWidth(){

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChange, Input, Output, EventEmitter, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChange, Input, Output, EventEmitter, ViewChild, ElementRef, Renderer2, HostListener } from '@angular/core';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 declare var $: any;
 @Component({
@@ -29,6 +29,7 @@ export class FilterComponent implements OnInit, OnChanges {
   public idleInterval;
   public selectedTagIndex;
   public autosuggest = [];
+  public placeholder = "Apply Filters";
   @ViewChild('suggestion_box')ul: ElementRef;
   @ViewChild('tag_list')tagList: ElementRef;
   @ViewChild('main_input')mainInput: ElementRef;
@@ -113,14 +114,31 @@ export class FilterComponent implements OnInit, OnChanges {
     if (this.idleTime > 4) {
       this.selectedLi = 0;
       this.ul.nativeElement.style.display = 'none';
+      this.autosuggest = [];
+      this.mainInput.nativeElement.blur();
     }
   }
 
 
+  stopTimer(){
+    clearInterval(this.idleInterval);
+  }
+
+  startTimer(){
+    this.idleTime = 0;
+    this.idleInterval = setInterval(() => { this.timerIncrement(); }, 1000);
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickout(event){
+    if(event.target !== this.mainInput.nativeElement){
+      this.ul.nativeElement.style.display = 'none';
+      this.autosuggest = [];
+    }
+  }
 
 
   showSuggestions(event) {
-    console.log('here');
     this.ul.nativeElement.style.display = '';
     this.autosuggest = [];
     this.filter = event.target.value.toLowerCase();
@@ -199,6 +217,8 @@ export class FilterComponent implements OnInit, OnChanges {
       this.renderer.appendChild(this.tagList.nativeElement, this.tagItem);
       // focusing inner input
       this.subKeyInputItem.focus();
+      //make placeholder empty
+      this.placeholder='';
   }
 
 
@@ -254,6 +274,9 @@ export class FilterComponent implements OnInit, OnChanges {
 
 
   editTag(target) {
+    this.selectedLi = 0;
+    this.autosuggest = [];
+    this.ul.nativeElement.style.display = 'none';
     const subkey = target.innerText;
     let key = target.parentNode.children[1].innerText;
     key = key.substr(0, key.length - 1);
@@ -327,10 +350,18 @@ export class FilterComponent implements OnInit, OnChanges {
       }
       this.output.emit(this.outputObject);
     }
+    if(Object.keys(this.outputObject).length>0) {
+      this.placeholder='';
+    }
+    else{
+      this.placeholder='Apply Filter';
+    }
     this.selectedKey = null;
     this.selectedSubkey = null;
     this.mainInput.nativeElement.removeAttribute('disabled');
     this.selectedLi = 0;
+    this.autosuggest = [];
+    this.ul.nativeElement.style.display = 'none';
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import {Collection} from '../../../Interfaces/collection';
-import {FilterConfig} from '../../../Interfaces/templates';
+import {FilterConfig, AllStoresTableConfig} from '../../../Config/config';
 import {StoresCollection} from '../../../Services/collection.service';
 
 @Component({
@@ -22,19 +22,7 @@ export class AllstoresComponent implements OnInit {
   }
 
   setTableConfig() {
-      this.tableConfig = {
-        tableHeight: 100, // in %(optional)
-        tableHeadingHeight: 10, // in %(optional)
-        tableBodyHeight: 90, // in %(optional)
-        tableWidth: 100, // in %(optional)
-        cellPadding: 15, // in px(optional)
-        cellMinWidth: 100, // in px(optional)
-        resize: true, // (optional)
-        sort: true, // (optional)
-        isFiltered: false, // (optional)
-        filter: null, // (optional)
-        columnNames: ['StoreName', 'AppleID', 'City', 'ContractID', 'Country', 'District']// (mandatory)
-      };
+      this.tableConfig = AllStoresTableConfig;
   }
 
   setFilterConfig() {

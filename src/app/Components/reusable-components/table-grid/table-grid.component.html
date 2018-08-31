@@ -2,19 +2,19 @@
         <div class="divTableRow table-header" [style.height.%]="tableConfig?.tableHeadingHeight">
          <div *ngFor="let heading of tableConfig?.columnNames; let i=index; " style="display: flex;">
            <div class="divTableHead divTableHeading" [style.width.px]="columnWidth[i]" [style.minWidth.px]="tableConfig?.cellMinWidth" [style.padding.px]="tableConfig?.cellPadding">
-               <span>{{ heading }}</span>
+               <span>{{ heading.label }}</span>
                <div class="sort-wrapper" *ngIf="selectedSortColumn!=i && tableConfig?.sort">
-                 <span (click)="sortBy(heading,'asc',i)" style="cursor: pointer;">
+                 <span (click)="sortBy(heading.name,'asc',i)" style="cursor: pointer;">
                     <fa-icon [icon]="faSortUp"></fa-icon>
                   </span>
-                  <span (click)="sortBy(heading,'des',i)" style="cursor: pointer;">
+                  <span (click)="sortBy(heading.name,'des',i)" style="cursor: pointer;">
                     <fa-icon [icon]="faSortDown"></fa-icon>
                  </span>
                </div>
-               <span class="ui-sort-button" (click)="sortBy(heading,'des',i)" *ngIf="selectedSortColumn==i&&sortingOrder=='asc'&& tableConfig?.sort" style="cursor: pointer;">
+               <span class="ui-sort-button" (click)="sortBy(heading.name,'des',i)" *ngIf="selectedSortColumn==i&&sortingOrder=='asc'&& tableConfig?.sort" style="cursor: pointer;">
                   <fa-icon [icon]="faSortUp"></fa-icon>
                 </span>
-                <span class="ui-sort-button" (click)="sortBy(heading,'asc',i)" *ngIf="selectedSortColumn==i&&sortingOrder=='des'&& tableConfig?.sort" style="cursor: pointer;">
+                <span class="ui-sort-button" (click)="sortBy(heading.name,'asc',i)" *ngIf="selectedSortColumn==i&&sortingOrder=='des'&& tableConfig?.sort" style="cursor: pointer;">
                     <fa-icon [icon]="faSortDown"></fa-icon>
                 </span>
                <span class="ui-column-resizer" style="cursor:col-resize;" *ngIf="i!=tableConfig?.columnNames.length-1&& tableConfig?.resize" (mousedown)="onMouseDown($event)" (drag)="initResizableColumns($event)"></span>
@@ -28,7 +28,7 @@
         [scrollWindow]="false">
         <div class="divTableRow" *ngFor="let data of _tableData">
          <div *ngFor="let heading of tableConfig?.columnNames; let i=index; " style="display: flex;">
-          <div class="divTableCell" [style.width.px]="columnWidth[i]" [style.minWidth.px]="tableConfig?.cellMinWidth" [style.padding.px]="tableConfig?.cellPadding">{{data[heading]}}</div>
+          <div class="divTableCell" [style.width.px]="columnWidth[i]" [style.minWidth.px]="tableConfig?.cellMinWidth" [style.padding.px]="tableConfig?.cellPadding">{{data[heading.name]}}</div>
         </div>
         </div>
     </div>
