@@ -3,23 +3,7 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-// let qs = require('querystring');
-
-// str = 'foo=bar&answer=42';
-
-// console.log(qs.parse(str));
-
-// str = '?whoops=nope&sorry=false';
-// str = str[0] === '?' ? str.substr(1,str.length) : str;
-
-// console.log(qs.parse(str).whoops);
-
-// let url = 'http://www.foo.com/bar/answer.html?a=42&t=1000',
-
-// str = url.split('?')[1];
-
-// console.log(qs.parse(str));
-
+const advfilter = require('./AdvFilterContent.json');
 
 const storeRoutes = require('./api/routes/stores');
 
@@ -45,6 +29,9 @@ app.use((req, res, next) => {
 })
 
 app.use('/stores', storeRoutes);
+app.get('/advfilter', function (req, res) {
+    res.json(advfilter);
+});
 
 app.use((req, res, next) => {
     const error = new Error('not Found');

@@ -1,0 +1,61 @@
+[{
+        "category": "BaseLine Information",
+        "subcategory": ["StoreName", "ContractID", "Country", "DCOTAConnection", "SFOStoreID", "LocalizedStoreName", "StoreAddressLine1",
+            "StoreAddressLine2", "StoreAddressLine3", "AppleID", "City", "District"
+        ],
+        "operations": ["equals", "is not equal to", "begins with", "contains", "does not contain", "ends with", "is blank",
+            "is not blank"
+        ],
+        "type": ["text", "dropdown"]
+    },
+    {
+        "category": "Program Details",
+        "subcategory": ["StoreName", "ContractID", "Country", "DCOTAConnection", "SFOStoreID", "LocalizedStoreName", "StoreAddressLine1",
+            "StoreAddressLine2", "StoreAddressLine3", "AppleID", "City", "District"
+        ],
+        "operations": ["has none", "has atleast one", "equals", "is not equal to"],
+        "type": ["text", "dropdown"]
+    },
+    {
+        "category": "Fixture Details",
+        "subcategory": ["2D Elements", "3D Elements", "Country", "DCOTAConnection", "SFOStoreID", "LocalizedStoreName", "StoreAddressLine1",
+            "StoreAddressLine2", "StoreAddressLine3", "AppleID", "City", "District", "Appointment Date"
+        ],
+        "operations": ["has none", "has atleast one", "equals", "is not equal to", "date"],
+        "type": ["text", "dropdown"]
+    },
+    {
+        "category": "Program Pipeline",
+        "subcategory": ["3D Site Survey status", "Location Review", "Site Survey Review", "Wave Status"],
+        "operations": ["has none", "has atleast one", "equals", "is not equal to", "date"],
+        "value": ["Approved", "Pending", "Not Applicable", "Submitted for Approval"],
+        "type": ["text", "dropdown"]
+    },
+    {
+        "category": "2D and 3D Elements",
+        "subcategory": ["Asset Tag", "Asset Type", "Campaign", "Description", "Instore Location", "Language", "Material",
+            "Product", "Product category", "Product Code", "Language"
+        ],
+        "operations": ["equals", "is not equal to", "begins with", "contains", "does not contain", "ends with", "is blank",
+            "is not blank"
+        ],
+        "value": ["English", "Germany", "French"],
+        "type": ["text", "dropdown"]
+    },
+    {
+        "category": "Ancilliary Elements",
+        "subcategory": ["Asset Type", "Description", "Product Code"],
+        "operations": ["equals", "is not equal to", "begins with", "contains", "does not contain", "ends with", "is blank",
+            "is not blank"
+        ],
+        "type": ["text", "dropdown"]
+    },
+    {
+        "category": "Demo Elements",
+        "subcategory": ["Asset Type", "Description", "LOB", "Product Code"],
+        "operations": ["equals", "is not equal to", "begins with", "contains", "does not contain", "ends with", "is blank",
+            "is not blank"
+        ],
+        "type": ["text", "dropdown"]
+    }
+]
