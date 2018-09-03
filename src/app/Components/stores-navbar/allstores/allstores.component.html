@@ -3,6 +3,6 @@
 <div class="content-wrapper">
     <input-filter [input]="filterConfig" (output)="filterData($event)"></input-filter>
     <div class="grid">
-        <table-grid [collection]="storesCollection"  [config]="tableConfig"></table-grid>
+        <table-grid [collection]="storesCollection" [config]="tableConfig" (fieldsDisplayed)="fieldsDisplayed($event)"></table-grid>
     </div>
 </div>
