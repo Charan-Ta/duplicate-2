@@ -1,61 +1,482 @@
 [{
         "category": "BaseLine Information",
-        "subcategory": ["StoreName", "ContractID", "Country", "DCOTAConnection", "SFOStoreID", "LocalizedStoreName", "StoreAddressLine1",
-            "StoreAddressLine2", "StoreAddressLine3", "AppleID", "City", "District"
-        ],
-        "operations": ["equals", "is not equal to", "begins with", "contains", "does not contain", "ends with", "is blank",
-            "is not blank"
-        ],
-        "type": ["text", "dropdown"]
+        "subcategory": {
+            "StoreName": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text",
+                    "begins with": "text",
+                    "contains": "text",
+                    "does not contain": "text",
+                    "ends with": "text",
+                    "is blank": null,
+                    "is not blank": null
+                }
+            },
+            "ContractID": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text",
+                    "is greater than or equal to": "text",
+                    "is less than or equal to": "text",
+                    "is in": "text",
+                    "is not in": "text",
+                    "is blank": null,
+                    "is not blank": null
+                }
+            },
+            "Country": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text",
+                    "begins with": "text",
+                    "contains": "text",
+                    "does not contain": "text",
+                    "ends with": "text",
+                    "is blank": null,
+                    "is not blank": null
+                }
+            },
+            "DCOTAConnection": {
+                "operations": {
+                    "equals": ["cellular", "wifi"],
+                    "is not equal to": ["cellular", "wifi"]
+                }
+            },
+            "SFOStoreID": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text",
+                    "is greater than or equal to": "text",
+                    "is less than or equal to": "text",
+                    "is in": "text",
+                    "is not in": "text",
+                    "is blank": null,
+                    "is not blank": null
+                }
+            },
+            "LocalizedStoreName": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text",
+                    "begins with": "text",
+                    "contains": "text",
+                    "does not contain": "text",
+                    "ends with": "text",
+                    "is blank": null,
+                    "is not blank": null
+                }
+            },
+            "StoreAddressLine1": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text",
+                    "begins with": "text",
+                    "contains": "text",
+                    "does not contain": "text",
+                    "ends with": "text",
+                    "is blank": null,
+                    "is not blank": null
+                }
+            },
+            "StoreAddressLine2": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text",
+                    "begins with": "text",
+                    "contains": "text",
+                    "does not contain": "text",
+                    "ends with": "text",
+                    "is blank": null,
+                    "is not blank": null
+                }
+            },
+            "StoreAddressLine3": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text",
+                    "begins with": "text",
+                    "contains": "text",
+                    "does not contain": "text",
+                    "ends with": "text",
+                    "is blank": null,
+                    "is not blank": null
+                }
+            },
+            "AppleID": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text",
+                    "is greater than or equal to": "text",
+                    "is less than or equal to": "text",
+                    "is in": "text",
+                    "is not in": "text",
+                    "is blank": null,
+                    "is not blank": null
+                }
+            },
+            "City": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text",
+                    "begins with": "text",
+                    "contains": "text",
+                    "does not contain": "text",
+                    "ends with": "text",
+                    "is blank": null,
+                    "is not blank": null
+                }
+            },
+            "District": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text",
+                    "begins with": "text",
+                    "contains": "text",
+                    "does not contain": "text",
+                    "ends with": "text",
+                    "is blank": null,
+                    "is not blank": null
+                }
+            }
+        }
     },
     {
         "category": "Program Details",
-        "subcategory": ["StoreName", "ContractID", "Country", "DCOTAConnection", "SFOStoreID", "LocalizedStoreName", "StoreAddressLine1",
-            "StoreAddressLine2", "StoreAddressLine3", "AppleID", "City", "District"
-        ],
-        "operations": ["has none", "has atleast one", "equals", "is not equal to"],
-        "type": ["text", "dropdown"]
+        "subcategory": {
+            "2D Elements": {
+                "operations": {
+                    "has none": null,
+                    "has atleast one": null
+                }
+            },
+            "3D Elements": {
+                "operations": {
+                    "has none": null,
+                    "has atleast one": null
+                }
+            },
+            "Ancilliary Elements": {
+                "operations": {
+                    "has none": null,
+                    "has atleast one": null
+                }
+            },
+            "Apple Funded Staffing Model": {
+                "operations": {
+                    "equals": ["Apple Shop", "Apple Shop 2.0", "Apple Inline", "Apple Mac Presntation"],
+                    "is not equals to": ["Apple Shop", "Apple Shop 2.0", "Apple Inline", "Apple Mac Presntation"]
+                }
+            },
+            "Approval Status": {
+                "operations": {
+                    "equals": ["Cancelled", "Completed", "In Progress", "Not Started"],
+                    "is not equals to": ["Cancelled", "Completed", "In Progress", "Not Started"],
+                    "is blank": null,
+                    "is not blank": null
+                }
+            },
+            "Content Distribution": {
+                "operations": {
+                    "equals": ["Tire 2 FISO", "Tier 2 Monobrand", "Tier 2 Multibrand"],
+                    "is not equals to": ["Tire 2 FISO", "Tier 2 Monobrand", "Tier 2 Multibrand"]
+                }
+            },
+            "Funding Model": {
+                "operations": {
+                    "equals": ["ACSP", "Apple Funded", "Partner Funded", "Sell Thru Fund", "U2", "Ubiquity"],
+                    "is not equals to": ["ACSP", "Apple Funded", "Partner Funded", "Sell Thru Fund", "U2", "Ubiquity"],
+                    "is blank": null,
+                    "is not blank": null
+                }
+            },
+            "Location Approval": {
+                "operations": {
+                    "equals": ["Tire 2 FISO", "Tier 2 Monobrand", "Tier 2 Multibrand"],
+                    "is not equals to": ["Tire 2 FISO", "Tier 2 Monobrand", "Tier 2 Multibrand"]
+                }
+            },
+            "White(+)": {
+                "operations": {
+                    "equals": ["true", "false"],
+                    "is not equals to": ["true", "false"]
+                }
+            }
+        }
     },
     {
         "category": "Fixture Details",
-        "subcategory": ["2D Elements", "3D Elements", "Country", "DCOTAConnection", "SFOStoreID", "LocalizedStoreName", "StoreAddressLine1",
-            "StoreAddressLine2", "StoreAddressLine3", "AppleID", "City", "District", "Appointment Date"
-        ],
-        "operations": ["has none", "has atleast one", "equals", "is not equal to", "date"],
-        "type": ["text", "dropdown"]
+        "subcategory": {
+            "2D Elements": {
+                "operations": {
+                    "has none": null,
+                    "has atleast one": null
+                }
+            },
+            "3D Elements": {
+                "operations": {
+                    "has none": null,
+                    "has atleast one": null
+                }
+            },
+            "Ancilliary Elements": {
+                "operations": {
+                    "has none": null,
+                    "has atleast one": null
+                }
+            },
+            "Actual Installatio Date": {
+                "operations": {
+                    "after quarter": "date",
+                    "before quarter": "date",
+                    "equals": "date",
+                    "is quarter": "date",
+                    "is greater than": "date",
+                    "is less than": "date",
+                    "is not equal to": "date"
+                }
+            },
+            "Actual Opening Date": {
+                "operations": {
+                    "after quarter": "date",
+                    "before quarter": "date",
+                    "equals": "date",
+                    "is quarter": "date",
+                    "is greater than": "date",
+                    "is less than": "date",
+                    "is not equal to": "date"
+                }
+            },
+            "Appointment Date": {
+                "operations": {
+                    "after quarter": "date",
+                    "before quarter": "date",
+                    "equals": "date",
+                    "is quarter": "date",
+                    "is greater than": "date",
+                    "is less than": "date",
+                    "is not equal to": "date"
+                }
+            },
+            "Demo Elements": {
+                "operations": {
+                    "has none": null,
+                    "has atleast one": null
+                }
+            },
+            "Fixture Class": {
+                "operations": {
+                    "is blank": null,
+                    "is not blank": null,
+                    "equals": ["Branded", "Branded+", "FlagShip"],
+                    "is not equal to": ["Branded", "Branded+", "FlagShip"]
+                }
+            },
+            "Target Installation Date": {
+                "operations": {
+                    "after quarter": "date",
+                    "before quarter": "date",
+                    "equals": "date",
+                    "is quarter": "date",
+                    "is greater than": "date",
+                    "is less than": "date",
+                    "is not equal to": "date"
+                }
+            },
+            "Version": {
+                "operations": {
+                    "equals": ["High", "Lockbox", "Low", "N/A", "Shelves"],
+                    "is not equal to": ["High", "Lockbox", "Low", "N/A", "Shelves"]
+                }
+            }
+        }
     },
     {
         "category": "Program Pipeline",
-        "subcategory": ["3D Site Survey status", "Location Review", "Site Survey Review", "Wave Status"],
-        "operations": ["has none", "has atleast one", "equals", "is not equal to", "date"],
-        "value": ["Approved", "Pending", "Not Applicable", "Submitted for Approval"],
-        "type": ["text", "dropdown"]
+        "subcategory": {
+            "3D Site Survey Status": {
+                "operations": {
+                    "equals": ["Apple Inline", "Apple Shop", "Apple Shop 2.0", "Apple Gondola", "Apple Mac Presntation", "Apple Inline"],
+                    "is not equal to": ["Apple Inline", "Apple Shop", "Apple Shop 2.0", "Apple Gondola", "Apple Mac Presntation", "Apple Inline"]
+                }
+            },
+            "Location Review": {
+                "operations": {
+                    "equals": ["Approved", "In Progress", "Not Applicable", "Rejected", "Submitted for Approval"],
+                    "is not equal to": ["Approved", "In Progress", "Not Applicable", "Rejected", "Submitted for Approval"]
+                }
+            },
+            "Site Survey Status": {
+                "operations": {
+                    "equals": ["Completed. Awaiting review and approval", "Completed, reviewed and approved", "Not Required", "Scheduled", "To be Scheduled"],
+                    "is not equal to": ["Completed. Awaiting review and approval", "Completed, reviewed and approved", "Not Required", "Scheduled", "To be Scheduled"]
+                }
+            },
+            "Wave Status": {
+                "operations": {
+                    "equals": ["Cancelled", "In Progress", "Completed", "On Hold", "Planning"],
+                    "is not equal to": ["Cancelled", "In Progress", "Completed", "On Hold", "Planning"],
+                    "begins with": ["Cancelled", "In Progress", "Completed", "On Hold", "Planning"],
+                    "contains": ["Cancelled", "In Progress", "Completed", "On Hold", "Planning"],
+                    "does not contain": ["Cancelled", "In Progress", "Completed", "On Hold", "Planning"],
+                    "ends with": ["Cancelled", "In Progress", "Completed", "On Hold", "Planning"],
+                    "is blank": null,
+                    "is not blank": null
+                }
+            }
+        }
     },
     {
         "category": "2D and 3D Elements",
-        "subcategory": ["Asset Tag", "Asset Type", "Campaign", "Description", "Instore Location", "Language", "Material",
-            "Product", "Product category", "Product Code", "Language"
-        ],
-        "operations": ["equals", "is not equal to", "begins with", "contains", "does not contain", "ends with", "is blank",
-            "is not blank"
-        ],
-        "value": ["English", "Germany", "French"],
-        "type": ["text", "dropdown"]
+        "subcategory": {
+            "Asset Tag": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text",
+                    "begins with": "text",
+                    "contains": "text",
+                    "does not contain": "text",
+                    "ends with": "text",
+                    "is blank": null,
+                    "is not blank": null
+                }
+            },
+            "Asset Type": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text"
+                }
+            },
+            "Description": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text",
+                    "begins with": "text",
+                    "contains": "text",
+                    "does not contain": "text",
+                    "ends with": "text",
+                    "is blank": null,
+                    "is not blank": null
+                }
+            },
+            "Language": {
+                "operations": {
+                    "equals": ["English", "French", "Spanish", "German", "Chinese", "Hindi", "Japanese"],
+                    "is not equal to": ["English", "French", "Spanish", "German", "Chinese", "Hindi", "Japanese"]
+                }
+            },
+            "Material": {
+                "operations": {
+                    "equals": ["Fabric", "Paper", "N/A", "Styrene"],
+                    "is not equal to": ["Fabric", "Paper", "N/A", "Styrene"]
+                }
+            },
+            "Product Code": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text",
+                    "begins with": "text",
+                    "contains": "text",
+                    "does not contain": "text",
+                    "ends with": "text",
+                    "is blank": null,
+                    "is not blank": null
+                }
+            },
+            "Size": {
+                "operations": {
+                    "equals": ["A0", "A1", "A2", "A3", "A4", "A5", "A6", "A6 Horizontal", "A8 Horizontal"],
+                    "is not equal to": ["A0", "A1", "A2", "A3", "A4", "A5", "A6", "A6 Horizontal", "A8 Horizontal"]
+                }
+            }
+        }
     },
     {
         "category": "Ancilliary Elements",
-        "subcategory": ["Asset Type", "Description", "Product Code"],
-        "operations": ["equals", "is not equal to", "begins with", "contains", "does not contain", "ends with", "is blank",
-            "is not blank"
-        ],
-        "type": ["text", "dropdown"]
+        "subcategory": {
+            "Asset Type": {
+                "operations": {
+                    "equals": ["Product Display Element", "Security Element", "Signage Acrylics"],
+                    "is not equal to": ["Product Display Element", "Security Element", "Signage Acrylics"]
+                }
+            },
+            "Description": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text",
+                    "begins with": "text",
+                    "contains": "text",
+                    "does not contain": "text",
+                    "ends with": "text",
+                    "is blank": null,
+                    "is not blank": null
+                }
+            },
+            "Product Code": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text",
+                    "begins with": "text",
+                    "contains": "text",
+                    "does not contain": "text",
+                    "ends with": "text",
+                    "is blank": null,
+                    "is not blank": null
+                }
+            }
+        }
     },
     {
         "category": "Demo Elements",
-        "subcategory": ["Asset Type", "Description", "LOB", "Product Code"],
-        "operations": ["equals", "is not equal to", "begins with", "contains", "does not contain", "ends with", "is blank",
-            "is not blank"
-        ],
-        "type": ["text", "dropdown"]
+        "subcategory": {
+            "Asset Type": {
+                "operations": {
+                    "equals": ["Accesory", "Demo Portion", "Demo Unit"],
+                    "is not equal to": ["Accesory", "Demo Portion", "Demo Unit"]
+                }
+            },
+            "Description": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text",
+                    "begins with": "text",
+                    "contains": "text",
+                    "does not contain": "text",
+                    "ends with": "text",
+                    "is blank": null,
+                    "is not blank": null
+                }
+            },
+            "Product Code": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text",
+                    "begins with": "text",
+                    "contains": "text",
+                    "does not contain": "text",
+                    "ends with": "text",
+                    "is blank": null,
+                    "is not blank": null
+                }
+            },
+            "LOB": {
+                "operations": {
+                    "equals": ["Apple TV", "Beats", "ipad", "iphone", "ipod", "Mac", "watch"],
+                    "is not equal to": ["Apple TV", "Beats", "ipad", "iphone", "ipod", "Mac", "watch"]
+                }
+            },
+            "Quantity": {
+                "operations": {
+                    "equals": "text",
+                    "is not equal to": "text",
+                    "is greater than or equal to": "text",
+                    "is less than or equal to": "text",
+                    "is in": "text",
+                    "is not in": "text",
+                    "is blank": null,
+                    "is not blank": null
+                }
+            }
+        }
     }
 ]
