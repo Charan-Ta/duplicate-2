@@ -29,7 +29,8 @@ export class FilterComponent implements OnInit, OnChanges {
   public idleInterval;
   public selectedTagIndex;
   public autosuggest = [];
-  public placeholder = "Apply Filters";
+  public placeholder = 'Apply Filters';
+  public isAdvFilter;
   @ViewChild('suggestion_box')ul: ElementRef;
   @ViewChild('tag_list')tagList: ElementRef;
   @ViewChild('main_input')mainInput: ElementRef;
@@ -48,11 +49,9 @@ export class FilterComponent implements OnInit, OnChanges {
     }
   }
 
-
-
-
   updateData(res) {
-    this.autosuggestData = res;
+    this.autosuggestData = res.columnNames;
+    this.isAdvFilter = res.advFilter;
     this.renderer.listen(this.mainInput.nativeElement, 'keydown', (event) => {
       this.selectKey(event);
     });
@@ -120,18 +119,18 @@ export class FilterComponent implements OnInit, OnChanges {
   }
 
 
-  stopTimer(){
+  stopTimer() {
     clearInterval(this.idleInterval);
   }
 
-  startTimer(){
+  startTimer() {
     this.idleTime = 0;
     this.idleInterval = setInterval(() => { this.timerIncrement(); }, 1000);
   }
 
   @HostListener('document:click', ['$event'])
-  clickout(event){
-    if(event.target !== this.mainInput.nativeElement){
+  clickout(event) {
+    if (event.target !== this.mainInput.nativeElement) {
       this.ul.nativeElement.style.display = 'none';
       this.autosuggest = [];
     }
@@ -151,7 +150,7 @@ export class FilterComponent implements OnInit, OnChanges {
         this.autosuggest.splice(i, 1);
       }
     }
-    setTimeout(() => {
+  setTimeout(() => {
       this.li = this.ul.nativeElement.getElementsByTagName('li');
       if (this.li.length > 0) {
         this.li[0].classList.add('selected');
@@ -217,8 +216,8 @@ export class FilterComponent implements OnInit, OnChanges {
       this.renderer.appendChild(this.tagList.nativeElement, this.tagItem);
       // focusing inner input
       this.subKeyInputItem.focus();
-      //make placeholder empty
-      this.placeholder='';
+      // make placeholder empty
+      this.placeholder = '';
   }
 
 
@@ -350,11 +349,10 @@ export class FilterComponent implements OnInit, OnChanges {
       }
       this.output.emit(this.outputObject);
     }
-    if(Object.keys(this.outputObject).length>0) {
-      this.placeholder='';
-    }
-    else{
-      this.placeholder='Apply Filter';
+    if (Object.keys(this.outputObject).length > 0) {
+      this.placeholder = '';
+    } else {
+      this.placeholder = 'Apply Filter';
     }
     this.selectedKey = null;
     this.selectedSubkey = null;

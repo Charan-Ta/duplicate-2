@@ -1,0 +1,64 @@
+.first-column {
+    width: 40%;
+    float: left;
+}
+
+.second-column {
+    width: 40%;
+    float: right;
+}
+
+.buttons_alignment {
+    text-align: center;
+    position: relative;
+    left: -15px;
+    cursor: pointer;
+}
+
+.left_button:hover {
+    color: #ddd;
+}
+
+.right_button:hover {
+    color: #ddd;
+}
+
+.cursorstyle {
+    cursor: pointer;
+}
+
+.background {
+    background-color: black;
+    color: #f5f5f5;
+}
+
+.popup-order-change {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.downArrow:hover {
+    color: #ddd;
+}
+
+.upArrow:hover {
+    color: #ddd;
+}
+
+.popup-order-change div {
+    cursor: pointer;
+}
+
+.upArrow {
+    position: relative;
+    top: -10px;
+    font-size: 15px;
+}
+
+.downArrow {
+    font-size: 15px;
+    position: relative;
+    top: 10px;
+    left: -13px;
+}

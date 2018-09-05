@@ -1,6 +1,6 @@
 <div class="tableWrapper" [style.width.%]="tableConfig?.tableWidth" [style.height.%]="tableConfig?.tableHeight">
   <div class="divTableRow table-header" [style.height.%]="tableConfig?.tableHeadingHeight">
-    <div *ngFor="let heading of storedFields; let i=index; " style="display: flex;">
+    <div *ngFor="let heading of tableConfig?.columnNames; let i=index; " style="display: flex;">
       <div class="divTableHead divTableHeading" [style.width.px]="columnWidth[i]" [style.minWidth.px]="tableConfig?.cellMinWidth"
         [style.padding.px]="tableConfig?.cellPadding">
         <span>{{ heading.label }}</span>
@@ -28,7 +28,7 @@
   <div class="table-body" [style.height.%]="tableConfig?.tableBodyHeight" infiniteScroll [infiniteScrollDistance]="2"
     [infiniteScrollThrottle]="500" (scrolled)="handleScroll()" [scrollWindow]="false">
     <div class="divTableRow" *ngFor="let data of _tableData">
-      <div *ngFor="let heading of storedFields; let i=index; " style="display: flex;">
+      <div *ngFor="let heading of tableConfig?.columnNames; let i=index; " style="display: flex;">
         <div class="divTableCell" [style.width.px]="columnWidth[i]" [style.minWidth.px]="tableConfig?.cellMinWidth"
           [style.padding.px]="tableConfig?.cellPadding">{{data[heading.name]}}</div>
       </div>
@@ -36,7 +36,3 @@
   </div>
 </div>
 <p *ngIf="_tableData">Total Results : {{_tableData.length}}</p>
-
-<div *ngIf="toogle_pop_comp">
-  <app-popup-window [availableFields]="storedFields" [TotalavailableFields]="Total_Available_fields" (masterArray)="masterArrayHandler($event)"></app-popup-window>
-</div>

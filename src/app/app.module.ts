@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule, Routes } from '@angular/router';
 import { InboxNavbarComponent } from './Components/inbox-navbar/inbox-navbar.component';
 import { StoresNavbarComponent } from './Components/stores-navbar/stores-navbar.component';
@@ -30,6 +31,7 @@ import { TableGridComponent } from './Components/reusable-components/table-grid/
 import { FilterComponent } from './Components/reusable-components/filter/filter.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PopupWindowComponent } from './Components/popup-window/popup-window.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -162,13 +164,15 @@ const appRoutes: Routes = [
     WorkflowComponent,
     TableGridComponent,
     FilterComponent,
+    PopupWindowComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     InfiniteScrollModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgbModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

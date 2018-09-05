@@ -1,7 +1,6 @@
-import { Component, OnInit, OnChanges, SimpleChange, Input, Renderer, ReflectiveInjector } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChange, Input, Renderer, ReflectiveInjector} from '@angular/core';
 import { faSort, faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import { Collection } from '../../../Interfaces/collection';
-
 declare var $: any;
 @Component({
   selector: 'table-grid',
@@ -9,9 +8,6 @@ declare var $: any;
   styleUrls: ['./table-grid.component.css']
 })
 export class TableGridComponent implements OnInit, OnChanges {
-  @ViewChild(PopupWindowComponent) popup1: PopupWindowComponent;
-  @Output('fieldsDisplayed') fieldsDisplayed: EventEmitter<string[]> = new EventEmitter<string[]>();
-  public fields;
   @Input('collection') collectionClass;
   @Input('config') tableConfig;
   public columnWidth = [];
@@ -30,16 +26,12 @@ export class TableGridComponent implements OnInit, OnChanges {
   public faSort = faSort;
   public faSortDown = faCaretDown;
   public faSortUp = faCaretUp;
-  public toogle_pop_comp;
-  public count = 0;
-  public storedFields;
   constructor(private renderer: Renderer, private collection: Collection) {
   }
 
   ngOnInit() {
-    this.storedFields = this.tableConfig.columnNames;
     if (localStorage.getItem('columnWidth')) {
-      this.columnWidth = localStorage.getItem('columnWidth').split(",");
+      this.columnWidth = localStorage.getItem('columnWidth').split(',');
     }
     if (localStorage.getItem('selectedColumn') && localStorage.getItem('sortingOrder')) {
       this.sortingOrder = localStorage.getItem('sortingOrder');
@@ -49,15 +41,15 @@ export class TableGridComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
-    if (changes.collectionClass && changes.collectionClass.currentValue != undefined) {
+    if (changes.collectionClass && changes.collectionClass.currentValue !== undefined) {
       this.setProviderAndLoadData(changes.collectionClass.currentValue);
     }
-    if (changes.tableConfig && changes.tableConfig.currentValue != undefined) {
+    if (changes.tableConfig && changes.tableConfig.currentValue !== undefined) {
       this.setTableConfig(changes.tableConfig.currentValue);
     }
   }
 
-  //set provider for collection and load first data
+  // set provider for collection and load first data
   setProviderAndLoadData(res) {
     ReflectiveInjector.resolveAndCreate([{ provide: Collection, useValue: res }]);
     this.collection.load().subscribe(res => {
@@ -66,26 +58,34 @@ export class TableGridComponent implements OnInit, OnChanges {
   }
 
 
-  //set deault values for optional parameters
+  // set deault values for optional parameters
   setTableConfig(res) {
     this.tableConfig = res;
-    //Setting Default Parameters if the user hasn't passed any of the following
-    if (!this.tableConfig.tableHeadingHeight)
-      this.tableConfig.tableHeadingHeight = 10;//in %
-    if (!this.tableConfig.tableBodyHeight)
-      this.tableConfig.tableBodyHeight = 90;//in %
-    if (!this.tableConfig.tableWidth)
-      this.tableConfig.tableWidth = 100;//in %
-    if (!this.tableConfig.cellPadding)
-      this.tableConfig.cellPadding = 10;// in px
-    if (!this.tableConfig.cellMinWidth)
-      this.tableConfig.cellMinWidth = 100;// in px
-    if (!this.tableConfig.resize)
-      this.tableConfig.resize = true;// boolean
-    if (!this.tableConfig.sort)
-      this.tableConfig.sort = true;// boolean
-    if (this.tableConfig.isFiltered)
+    // Setting Default Parameters if the user hasn't passed any of the following
+    if (!this.tableConfig.tableHeadingHeight) {
+      this.tableConfig.tableHeadingHeight = 10;
+    } // in %
+    if (!this.tableConfig.tableBodyHeight) {
+      this.tableConfig.tableBodyHeight = 90;
+    } // in %
+    if (!this.tableConfig.tableWidth) {
+      this.tableConfig.tableWidth = 100;
+    } // in %
+    if (!this.tableConfig.cellPadding) {
+      this.tableConfig.cellPadding = 10;
+    } // in px
+    if (!this.tableConfig.cellMinWidth) {
+      this.tableConfig.cellMinWidth = 100;
+    } // in px
+    if (!this.tableConfig.resize) {
+      this.tableConfig.resize = true;
+    } // boolean
+    if (!this.tableConfig.sort) {
+      this.tableConfig.sort = true;
+    } // boolean
+    if (this.tableConfig.isFiltered) {
       this.filterData();
+    }
     this.setInitialColumnWidth();
   }
 
@@ -95,6 +95,7 @@ export class TableGridComponent implements OnInit, OnChanges {
   }
 
   setInitialColumnWidth() {
+    this.columnWidth = [];
     if (this.tableConfig.columnNames) {
       for (let i = 0; i < this.tableConfig.columnNames.length; i++) {
         this.columnWidth.push(($('.tableWrapper').width()) / this.tableConfig.columnNames.length);
@@ -116,11 +117,11 @@ export class TableGridComponent implements OnInit, OnChanges {
   }
 
   initResizableColumns() {
-    let minWidth = this.tableConfig.cellMinWidth;
+    const minWidth = this.tableConfig.cellMinWidth;
     this.renderer.listenGlobal('body', 'mousemove', (event) => {
       if (this.pressed) {
-        var rightWidth = this.rightColWidth - (event.pageX - this.startX);
-        var leftWidth = this.leftColWidth + (event.pageX - this.startX);
+        let rightWidth = this.rightColWidth - (event.pageX - this.startX);
+        let leftWidth = this.leftColWidth + (event.pageX - this.startX);
         if (leftWidth <= minWidth) {
           rightWidth = leftWidth + rightWidth - minWidth;
           leftWidth = minWidth;
@@ -134,7 +135,7 @@ export class TableGridComponent implements OnInit, OnChanges {
     this.renderer.listenGlobal('body', 'mouseup', (event) => {
       if (this.pressed) {
         this.pressed = false;
-        localStorage.setItem("columnWidth", this.columnWidth.join(","));
+        localStorage.setItem('columnWidth', this.columnWidth.join(','));
       }
     });
   }
@@ -156,8 +157,9 @@ export class TableGridComponent implements OnInit, OnChanges {
     if (event) {
       this.collection.loadNext(this.tableConfig.isFiltered, this.tableConfig.filter).subscribe(res => {
         this._tableData = this._tableData.concat(res);
-        if (res.length > 0)
+        if (res.length > 0) {
           this.collection.updateURLParams();
+        }
       });
     }
   }
@@ -166,8 +168,9 @@ export class TableGridComponent implements OnInit, OnChanges {
     this.collection.sort(event.column, event.order, this.tableConfig.isFiltered, this.tableConfig.filter).subscribe(res => {
       this._tableData = [];
       this._tableData = this._tableData.concat(res);
-      if (this._tableData.length > 0)
+      if (this._tableData.length > 0) {
         this.collection.updateURLParams();
+      }
     });
   }
 
@@ -178,30 +181,5 @@ export class TableGridComponent implements OnInit, OnChanges {
         this._tableData = this._tableData.concat(res);
       });
     }
-  }
-
-  // Method to execute the popup 
-  popup() {
-    this.toogle_pop_comp = true;
-    if (this.count > 0) {
-      this.popup1.open();
-    }
-    this.count = 1;
-  }
-
-  masterArrayHandler($event: any) {
-
-    this.fields = $event;
-    console.log(this.fields);
-    this.storedFields = this.fields;
-    // this.countTwo = '1';
-    // localStorage.setItem('countTwo', this.countTwo);
-    // localStorage.setItem('storedFields1', JSON.stringify(this.fields));
-    this.columnWidth = [];
-    for (let i = 0; i < this.storedFields.length; i++) {
-      this.columnWidth.push(($('.tableWrapper').width()) / this.storedFields.length);
-    }
-    this.fieldsDisplayed.emit(this.fields);
-    console.log(this.fields);
   }
 }

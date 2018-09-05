@@ -1,5 +1,19 @@
-export const FilterConfig = [
-  {
+export const FilterConfig = {
+  advFilter: false
+};
+
+export const AllStoresTableConfig = {
+  tableHeight: 100, // in %(optional)
+  tableHeadingHeight: 10, // in %(optional)
+  tableBodyHeight: 90, // in %(optional)
+  tableWidth: 100, // in %(optional)
+  cellPadding: 15, // in px(optional)
+  cellMinWidth: 100, // in px(optional)
+  resize: true, // (optional)
+  sort: true, // (optional)
+  isFiltered: false, // (optional)
+  filter: null, // (optional)
+  columnNames: [{
     name: 'AppleID',
     label: 'Apple ID'
   }, {
@@ -13,254 +27,183 @@ export const FilterConfig = [
     label: 'Country'
   }, {
     name: 'StoreName',
-    label: 'Store Name',
+    label: 'Store Name'
   }, {
     name: 'District',
     label: 'District'
-  }
-];
-
-
-export const AllStoresTableConfig = {
-  tableHeight: 100, // in %(optional)
-  tableHeadingHeight: 10, // in %(optional)
-  tableBodyHeight: 90, // in %(optional)
-  tableWidth: 100, // in %(optional)
-  cellPadding: 15, // in px(optional)
-  cellMinWidth: 100, // in px(optional)
-  resize: true, // (optional)
-  sort: true, // (optional)
-  isFiltered: false, // (optional)
-  filter: null, // (optional)
-  // columnNames: [{
-  //   name: 'AppleID',
-  //   label: 'Apple ID'
-  // }, {
-  //   name: 'City',
-  //   label: 'City'
-  // }, {
-  //   name: 'ContractID',
-  //   label: 'Contract ID'
-  // }, {
-  //   name: 'Country',
-  //   label: 'Country'
-  // }, {
-  //   name: 'StoreName',
-  //   label: 'Store Name'
-  // }, {
-  //   name: 'District',
-  //   label: 'District'
-  // }],// (mandatory)
-  // availableFields: [{
-  //   name: 'AppleID',
-  //   label: 'Apple ID'
-  // }, {
-  //   name: 'City',
-  //   label: 'City'
-  // }, {
-  //   name: 'ContractID',
-  //   label: 'Contract ID'
-  // }, {
-  //   name: 'Country',
-  //   label: 'Country'
-  // }, {
-  //   name: 'StoreName',
-  //   label: 'Store Name'
-  // }, {
-  //   name: 'District',
-  //   label: 'District'
-  // }, {
-
-  // }]
-
-
+  }]
 };
 
-export const BaseLineInformation = {
-  columnNames: [{
+export const BaseLineInformation = [{
     name: 'StoreName',
-    label: "Store Name"
+    label: 'Store Name'
   }, {
-    name: "ContractID",
-    label: "Contract ID"
+    name: 'ContractID',
+    label: 'Contract ID'
   }, {
-    name: "Country",
-    label: "Country"
+    name: 'Country',
+    label: 'Country'
   }, {
-    name: "DCOTAConnection",
-    label: "DCOTA Connection"
+    name: 'DCOTAConnection',
+    label: 'DCOTA Connection'
   }, {
-    name: "SFOStoreID",
-    label: "SFO Store ID"
+    name: 'SFOStoreID',
+    label: 'SFO Store ID'
   }, {
-    name: "LocalizedStoreName",
-    label: "Localized Store Name"
+    name: 'LocalizedStoreName',
+    label: 'Localized Store Name'
   }, {
-    name: "StoreAddressLine1",
-    label: "Store Address Line 1"
+    name: 'StoreAddressLine1',
+    label: 'Store Address Line 1'
   }, {
-    name: "StoreAddressLine2",
-    label: "Store Address Line 2"
+    name: 'StoreAddressLine2',
+    label: 'Store Address Line 2'
   }, {
-    name: "StoreAddressLine3",
-    label: "Store Address Line 3"
+    name: 'StoreAddressLine3',
+    label: 'Store Address Line 3'
   }, {
-    name: "AppleID",
-    label: "Apple ID"
+    name: 'AppleID',
+    label: 'Apple ID'
   }, {
-    name: "City",
-    label: "City"
+    name: 'City',
+    label: 'City'
   }, {
-    name: "District",
-    label: "District"
+    name: 'District',
+    label: 'District'
+  }];
+
+export const ProgramDetails = [{
+    name: '2D Elements',
+    label: '2D Elements'
+  },
+  {
+    name: '3D Elements',
+    label: '3D Elements'
+  },
+  {
+    name: 'Ancilliary Elements',
+    label: 'Ancilliary Elements'
+  },
+  {
+    name: 'Apple Funded Staffing Model',
+    label: 'Apple Funded Staffing Model'
+  },
+  {
+    name: 'Approval Status',
+    label: 'Approval Status'
+  },
+  {
+    name: 'Content Distribution',
+    label: 'Content Distribution'
+  },
+  {
+    name: 'Funding Model',
+    label: 'Funding Model'
+  },
+  {
+    name: 'Location Approval',
+    label: 'Location Approval'
+  },
+  {
+    name: 'White(+)',
+    label: 'White(+)'
   }
-  ]
-};
+  ];
 
-export const ProgramDetails = {
-  columnNames: [{
-    name: "2D Elements",
-    label: "2D Elements"
-  },
-  {
-    name: "3D Elements",
-    label: "3D Elements"
-  },
-  {
-    name: "Ancilliary Elements",
-    label: "Ancilliary Elements"
-  },
-  {
-    name: "Apple Funded Staffing Model",
-    label: "Apple Funded Staffing Model"
-  },
-  {
-    name: "Approval Status",
-    label: "Approval Status"
-  },
-  {
-    name: "Content Distribution",
-    label: "Content Distribution"
-  },
-  {
-    name: "Funding Model",
-    label: "Funding Model"
-  },
-  {
-    name: "Location Approval",
-    label: "Location Approval"
-  },
-  {
-    name: "White(+)",
-    label: "White(+)"
+export const FixtureDetails = [{
+    name: '2D Elements',
+    label: '2D Elements'
+  }, {
+    name: '3D Elements',
+    label: '3D Elements'
+  }, {
+    name: 'Ancilliary Elements',
+    label: 'Ancilliary Elements'
+  }, {
+    name: 'Actual Installatio Date',
+    label: 'Actual Installatio Date'
+  }, {
+    name: 'Actual Opening Date',
+    label: 'Actual Opening Date'
+  }, {
+    name: 'Appointment Date',
+    label: 'Appointment Date'
+  }, {
+    name: 'Demo Elements',
+    label: 'Demo Elements'
+  }, {
+    name: 'Fixture Class',
+    label: 'Fixture Class'
+  }, {
+    name: 'Target Installation Date',
+    label: 'Target Installation Date'
+  }, {
+    name: 'Version',
+    label: 'Version'
   }
-  ]
-};
+  ];
 
-export const FixtureDetails = {
-  columnNames: [{
-    name: "2D Elements",
-    label: "2D Elements"
+export const ProgramPipeline = [{
+    name: '3D Site Survey Status',
+    label: '3D Site Survey Status'
   }, {
-    name: "3D Elements",
-    label: "3D Elements"
+    name: 'Location Review',
+    label: 'Location Review'
   }, {
-    name: "Ancilliary Elements",
-    label: "Ancilliary Elements"
+    name: 'Site Survey Status',
+    label: 'Site Survey Status'
   }, {
-    name: "Actual Installatio Date",
-    label: "Actual Installatio Date"
-  }, {
-    name: "Actual Opening Date",
-    label: "Actual Opening Date"
-  }, {
-    name: "Appointment Date",
-    label: "Appointment Date"
-  }, {
-    name: "Demo Elements",
-    label: "Demo Elements"
-  }, {
-    name: "Fixture Class",
-    label: "Fixture Class"
-  }, {
-    name: "Target Installation Date",
-    label: "Target Installation Date"
-  }, {
-    name: "Version",
-    label: "Version"
-  }
-  ]
-};
+    name: 'Wave Status',
+    label: 'Wave Status'
+  }];
 
-export const ProgramPipeline = {
-  columnNames: [{
-    name: "3D Site Survey Status",
-    label: "3D Site Survey Status"
+export const twoDandthreeDElements = [{
+    name: 'Asset Tag',
+    label: 'Asset Tag'
   }, {
-    name: "Location Review",
-    label: "Location Review"
+    name: 'Asset Type',
+    label: 'Asset Type'
   }, {
-    name: "Site Survey Status",
-    label: "Site Survey Status"
+    name: 'Description',
+    label: 'Description'
   }, {
-    name: "Wave Status",
-    label: "Wave Status"
-  }]
-};
+    name: 'Language',
+    label: 'Language'
+  }, {
+    name: 'Material',
+    label: 'Material'
+  }, {
+    name: 'Product Code',
+    label: 'Product Code'
+  }, {
+    name: 'Size',
+    label: 'Size'
+  }];
 
-export const twoDandthreeDElements = {
-  columnNames: [{
-    name: "Asset Tag",
-    label: "Asset Tag"
+export const AncilliaryElements = [{
+    name: 'Asset Type',
+    label: 'Asset Type'
   }, {
-    name: "Asset Type",
-    label: "Asset Type"
+    name: 'Description',
+    label: 'Description'
   }, {
-    name: "Description",
-    label: "Description"
-  }, {
-    name: "Language",
-    label: "Language"
-  }, {
-    name: "Material",
-    label: "Material"
-  }, {
-    name: "Product Code",
-    label: "Product Code"
-  }, {
-    name: "Size",
-    label: "Size"
-  }]
-};
+    name: 'Product Code',
+    label: 'Product Code'
+  }];
 
-export const AncilliaryElements = {
-  columnNames: [{
-    name: "Asset Type",
-    label: "Asset Type"
+export const DemoElements = [{
+    name: 'Asset Type',
+    label: 'Asset Type'
   }, {
-    name: "Description",
-    label: "Description"
+    name: 'Description',
+    label: 'Description'
   }, {
-    name: "Product Code",
-    label: "Product Code"
-  }]
-};
-
-export const DemoElements = {
-  columnNames: [{
-    name: "Asset Type",
-    label: "Asset Type"
+    name: 'Product Code',
+    label: 'Product Code'
   }, {
-    name: "Description",
-    label: "Description"
+    name: 'LOB',
+    label: 'LOB'
   }, {
-    name: "Product Code",
-    label: "Product Code"
-  }, {
-    name: "LOB",
-    label: "LOB"
-  }, {
-    name: "Quantity",
-    label: "Quantity"
-  }]
-}
+    name: 'Quantity',
+    label: 'Quantity'
+  }];
