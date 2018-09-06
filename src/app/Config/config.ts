@@ -1,5 +1,16 @@
-export const FilterConfig = {
-  advFilter: false
+export const AdvanceFilterConfig = {
+  categories: [{
+    name: 'BaseLine Information',
+    label: 'BaseLine Information'
+    },
+    {
+      name: 'Program Details',
+      label: 'Program Details'
+    },
+    {
+      name: 'Fixture Details',
+      label: 'Fixture Details'
+    }]
 };
 
 export const AllStoresTableConfig = {

@@ -32,6 +32,7 @@ import { FilterComponent } from './Components/reusable-components/filter/filter.
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PopupWindowComponent } from './Components/popup-window/popup-window.component';
+import { AdvanceFilterComponent } from './Components/reusable-components/advance-filter/advance-filter.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -165,6 +166,7 @@ const appRoutes: Routes = [
     TableGridComponent,
     FilterComponent,
     PopupWindowComponent,
+    AdvanceFilterComponent,
   ],
   imports: [
     BrowserModule,

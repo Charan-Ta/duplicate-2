@@ -1,0 +1,27 @@
+{
+"operations": [{
+    "name":"equals",
+    "label":"equals"
+    },{
+    "name":"isNotEqualTo",
+    "label":"is not equal to"   
+    },{
+    "name":"beginsWith",
+    "label":"begins with"   
+    },{
+    "name":"contains",
+    "label":"contains"   
+    },{
+    "name":"doesNotContain",
+    "label":"does not contain"   
+    },{
+    "name":"endsWith",
+    "label":"ends with"   
+    },{
+    "name":"isBlank",
+    "label":"is blank"   
+    },{
+    "name":"isNotBlank",
+    "label":"is not blank"   
+    }]
+}

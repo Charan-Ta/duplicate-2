@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Collection } from '../../../Interfaces/collection';
-import { FilterConfig,
+import { AdvanceFilterConfig,
          AllStoresTableConfig,
          BaseLineInformation,
          AncilliaryElements,
@@ -23,31 +23,40 @@ export class AllstoresComponent implements OnInit {
   public tableConfig;
   public storesCollection;
   public filterConfig;
+  public advanceFilterConfig;
   public storedFields;
   public totalAvailableFields;
   constructor(private collection: Collection) { }
 
   ngOnInit() {
     this.storesCollection = this.collection;
+    this.totalAvailableFields = BaseLineInformation;
     this.setTableConfig();
-    this.setFilterConfig();
+    this.setBasicFilterConfig();
+    this.setAdvanceFilterConfig();
   }
 
   setTableConfig() {
     this.tableConfig = AllStoresTableConfig;
     this.storedFields = this.tableConfig.columnNames;
-    this.totalAvailableFields = BaseLineInformation;
   }
 
-  setFilterConfig() {
-    this.filterConfig = FilterConfig;
-    this.filterConfig.columnNames = this.tableConfig.columnNames;
+  setBasicFilterConfig() {
+    this.filterConfig = this.tableConfig.columnNames;
+  }
+
+  setAdvanceFilterConfig() {
+    this.advanceFilterConfig = AdvanceFilterConfig;
   }
 
   filterData(event) {
     this.tableConfig.isFiltered = true;
     this.tableConfig.filter = event;
     this.tableConfig = Object.assign({}, this.tableConfig);
+  }
+
+  filterAdvanceData(event) {
+    console.log(event);
   }
 
   // Method to execute the popup

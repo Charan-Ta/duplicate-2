@@ -1,0 +1,10 @@
+{
+    "values": [
+        {
+        "name":"cellular",
+        "label":"cellular"
+        },{
+        "name":"wifi",
+        "label":"wifi"
+        }]
+}
