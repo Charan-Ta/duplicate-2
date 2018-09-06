@@ -61,6 +61,14 @@ export class AdvanceFilterComponent implements OnInit, OnChanges {
     }
   }
 
+  @HostListener('document:click', ['$event'])
+  clickout(event) {
+    if (event.target !== this.mainInput.nativeElement) {
+      this.ul.nativeElement.style.display = 'none';
+      this.autosuggest = [];
+    }
+  }
+
   selectKey(event) {
     let liSelected = this.li[this.selectedLi];
     if (event.keyCode === 13) {
@@ -73,8 +81,12 @@ export class AdvanceFilterComponent implements OnInit, OnChanges {
       } else if (this.param === 'operation') {
         this.selectedOperation = this.operations[this.selectedLi];
         this.loadValueSuggestions(event);
+      } else {
+        this.selectedValue = this.values[this.selectedLi];
+        this.processTag();
       }
     } else if (event.keyCode === 40) {
+      event.preventDefault();
       this.idleTime = 0;
       liSelected.setAttribute('tabIndex', this.selectedLi);
       liSelected.focus();
@@ -89,6 +101,7 @@ export class AdvanceFilterComponent implements OnInit, OnChanges {
       liSelected.classList.add('selected');
       liSelected.focus();
     } else if (event.keyCode === 38) {
+      event.preventDefault();
       this.idleTime = 0;
       liSelected.setAttribute('tabIndex', this.selectedLi);
       liSelected.focus();
@@ -111,16 +124,11 @@ export class AdvanceFilterComponent implements OnInit, OnChanges {
       this.idleTime = 0;
       if (this.param === 'mainInput') {
         this.mainInput.nativeElement.focus();
-        this.showSuggestions(event, this.categories, this.mainInput.nativeElement);
       } else {
         this.subCategoryInputItem.focus();
-        this.showSuggestions(event, this.categories, this.subCategoryInputItem);
       }
     }
   }
-
-
-
 
   timerIncrement() {
     this.idleTime += 1;
@@ -132,7 +140,6 @@ export class AdvanceFilterComponent implements OnInit, OnChanges {
     }
   }
 
-
   stopTimer() {
     clearInterval(this.idleInterval);
   }
@@ -143,7 +150,6 @@ export class AdvanceFilterComponent implements OnInit, OnChanges {
   }
 
   showSuggestions(event, autoSuggestData, input) {
-    console.log(event.target);
     this.selectedLi = 0;
     this.ul.nativeElement.style.display = '';
     this.autosuggest = [];
@@ -186,7 +192,7 @@ export class AdvanceFilterComponent implements OnInit, OnChanges {
       this.closeBtn = this.renderer.createElement('span');
       this.renderer.addClass(this.closeBtn, 'close-btn');
       this.renderer.listen(this.closeBtn, 'click', (event) => {
-        this.removeTag(event);
+        this.removeTag(event.target);
       });
       this.closeBtnIcon = this.renderer.createText('x');
       this.renderer.appendChild(this.closeBtn, this.closeBtnIcon);
@@ -310,8 +316,28 @@ export class AdvanceFilterComponent implements OnInit, OnChanges {
     console.log('edit Tag');
   }
 
-  removeTag(event) {
-    event.target.parentNode.style.display = 'none';
+  createTag(event) {
+    if(this.param === 'mainInput') {
+      this.selectedCategory = this.categories[$(event.target).index()];
+      this.makeTag();
+    } else if (this.param === 'subCategory') {
+      this.selectedSubCategory = this.subCategories[$(event.target).index()]; 
+      this.completeSubCategory();
+    } else if (this.param === 'operation') {
+      this.selectedOperation = this.operations[$(event.target).index()];
+      this.loadValueSuggestions(event);
+    } else {
+       this.selectedValue = this.values[$(event.target).index()];
+       this.processTag();
+    }
+  }
+
+  removeTag(target) {
+    let index = $(target.parentNode).index();
+    this.outputObject.splice(index,1);
+    this.output.emit(this.outputObject);
+    target.parentNode.parentNode.removeChild(target.parentNode.parentNode.childNodes[index]);
+    this.resetValues();
   }
 
   completeTag(event) {
@@ -334,7 +360,10 @@ export class AdvanceFilterComponent implements OnInit, OnChanges {
       // adding subkey
       this.categoryItem = this.renderer.createElement('span');
       this.renderer.addClass(this.subCategoryInputItem, 'subkey');
-      this.categoryItemValue = this.renderer.createText(this.selectedValue);
+      if (typeof this.selectedValue == "string")
+        this.categoryItemValue = this.renderer.createText(this.selectedValue);
+      else
+        this.categoryItemValue = this.renderer.createText(this.selectedValue.label);
       this.renderer.listen(this.categoryItem, 'click', (event) => {
         this.editTag(event.target);
       });
@@ -348,7 +377,7 @@ export class AdvanceFilterComponent implements OnInit, OnChanges {
       // this.editedIndex = null;
       // }
     } else {
-      this.removeTag(event);
+      this.removeTag(this.categoryItem);
     }
     this.resetValues();
   }
@@ -358,7 +387,7 @@ export class AdvanceFilterComponent implements OnInit, OnChanges {
    this.subCategories = res.subCategories;
    if (this.subCategories) {
      this.param = 'subCategory';
-       this.showSuggestions(event, this.subCategories, this.subCategoryInputItem);
+     this.showSuggestions(event, this.subCategories, this.subCategoryInputItem);
    }
     });
  }
@@ -382,17 +411,20 @@ export class AdvanceFilterComponent implements OnInit, OnChanges {
  }
 
   createObject() {
-   const data = {'category': this.selectedCategory.name,
-   'subCategory': this.selectedSubCategory.name,
-   'operation': this.selectedOperation.name,
-   'value': this.selectedValue};
-   if (this.outputObject.indexOf(data) > -1) {
+   const data = {
+     category: this.selectedCategory.name,
+     subCategory: this.selectedSubCategory.name,
+     operation: this.selectedOperation.name,
+     value: typeof this.selectedValue=="string"?this.selectedValue:this.selectedValue.name
+    };
+   for(let i=0; i<this.outputObject.length;i++) {
+    if (this.isEquivalent(this.outputObject[i],data)) {
      return false;
-   } else {
-     this.outputObject.push(data);
-     this.output.emit(this.outputObject);
-     return true;
-   }
+     }
+   } 
+   this.outputObject.push(data);
+   this.output.emit(this.outputObject);
+   return true;
   }
 
   resetValues() {
@@ -406,4 +438,19 @@ export class AdvanceFilterComponent implements OnInit, OnChanges {
     this.param = 'mainInput';
     this.mainInput.nativeElement.focus();
   }
+
+  isEquivalent(a, b) {
+    let aProps = Object.getOwnPropertyNames(a);
+    let bProps = Object.getOwnPropertyNames(b);
+    if (aProps.length != bProps.length) {
+        return false;
+    }
+    for (let i = 0; i < aProps.length; i++) {
+        let propName = aProps[i];
+        if (a[propName] !== b[propName]) {
+            return false;
+        }
+    }
+    return true;
+   }
 }

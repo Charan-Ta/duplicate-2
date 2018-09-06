@@ -2,7 +2,7 @@
 <input class="navbar-two-input allstore-search" placeholder="Select Category" style="float: right;" />
 <div class="content-wrapper">
     <advance-filter [input]="advanceFilterConfig" (output)="filterAdvanceData($event)"></advance-filter>
-    <input-filter [input]="filterConfig" (output)="filterData($event)"></input-filter>
+    <!-- <input-filter [input]="filterConfig" (output)="filterData($event)"></input-filter> -->
     <button (click)="popup()">open popup</button>
     <app-popup-window [availableFields]="storedFields" [TotalavailableFields]="totalAvailableFields" (masterArray)="masterArrayHandler($event)"></app-popup-window>
     <div class="grid">
