@@ -1,10 +1,16 @@
 <h3 id="allstores-title">All Stores</h3>
 <input class="navbar-two-input allstore-search" placeholder="Select Category" style="float: right;" />
 <div class="content-wrapper">
-    <advance-filter [input]="advanceFilterConfig" (output)="filterAdvanceData($event)"></advance-filter>
+    <!-- <advance-filter [input]="advanceFilterConfig" (output)="filterAdvanceData($event)"></advance-filter> -->
     <!-- <input-filter [input]="filterConfig" (output)="filterData($event)"></input-filter> -->
-    <button (click)="popup()">open popup</button>
-    <app-popup-window [availableFields]="storedFields" [TotalavailableFields]="totalAvailableFields" (masterArray)="masterArrayHandler($event)"></app-popup-window>
+    <div class="button-wrapper">
+        <button class="btn-transparent" [ngClass]="{'btn-active':columnCategory==='stores'}" (click)="chooseColumnCategory('stores')">Stores</button>
+        <button class="btn-transparent" [ngClass]="{'btn-active':columnCategory==='programs'}" (click)="chooseColumnCategory('programs')">Programs</button>
+        <button class="btn-transparent" [ngClass]="{'btn-active':columnCategory==='fixtures'}" (click)="chooseColumnCategory('fixtures')">Fixtures</button>
+        <button class="btn-transparent" [ngClass]="{'btn-active':columnCategory==='elements'}" (click)="chooseColumnCategory('elements')">Elements</button>
+    </div>
+    <!-- <button (click)="popup()">open popup</button>
+    <app-popup-window [availableFields]="storedFields" [TotalavailableFields]="totalAvailableFields" (masterArray)="masterArrayHandler($event)"></app-popup-window>-->
     <div class="grid">
         <table-grid [collection]="storesCollection" [config]="tableConfig"></table-grid>
     </div>

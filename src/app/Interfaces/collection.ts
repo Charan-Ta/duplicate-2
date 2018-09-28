@@ -15,4 +15,5 @@ export abstract class Collection {
   abstract loadNext(isFiltered:boolean,filter:object):Observable<any>;
   abstract sort(sortBy:string,sortOrder:string,isFiltered:boolean,filter:object):Observable<any>;
   abstract filter(filter:object):Observable<any>;
+  abstract getTableColumns():Observable<any>;
 }

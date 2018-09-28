@@ -1,14 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Collection } from '../../../Interfaces/collection';
-import { AdvanceFilterConfig,
-         AllStoresTableConfig,
-         BaseLineInformation,
-         AncilliaryElements,
-         DemoElements,
-         FixtureDetails,
-         ProgramDetails,
-         ProgramPipeline,
-         twoDandthreeDElements } from '../../../Config/config';
+import { AllStoresTableConfig, AdvanceFilterConfig } from '../../../Config/config';
 import { PopupWindowComponent } from '../../popup-window/popup-window.component';
 import { StoresCollection } from '../../../Services/collection.service';
 
@@ -24,25 +16,33 @@ export class AllstoresComponent implements OnInit {
   public storesCollection;
   public filterConfig;
   public advanceFilterConfig;
-  public storedFields;
-  public totalAvailableFields;
+  public tableColumns;
+  public columnCategory = 'stores';
   constructor(private collection: Collection) { }
 
   ngOnInit() {
     this.storesCollection = this.collection;
-    this.totalAvailableFields = BaseLineInformation;
-    this.setTableConfig();
-    this.setBasicFilterConfig();
+    this.getTableColumns();
     this.setAdvanceFilterConfig();
   }
 
-  setTableConfig() {
+  getTableColumns() {
+    this.collection.getTableColumns().subscribe( res => {
+      this.tableColumns = res;
+      this.setTableConfig(this.tableColumns.stores);
+    });
+  }
+
+  setTableConfig(columns) {
     this.tableConfig = AllStoresTableConfig;
-    this.storedFields = this.tableConfig.columnNames;
+    this.tableConfig.columnNames = columns.visibleColumns;
+    this.setBasicFilterConfig();
   }
 
   setBasicFilterConfig() {
-    this.filterConfig = this.tableConfig.columnNames;
+    if(this.tableConfig.columnNames){
+      this.filterConfig = this.tableConfig.columnNames;
+    }
   }
 
   setAdvanceFilterConfig() {
@@ -59,18 +59,37 @@ export class AllstoresComponent implements OnInit {
     console.log(event);
   }
 
-  // Method to execute the popup
-  popup() {
-    this.columnSelectPopup.open();
-  }
-
-  masterArrayHandler(event: any) {
-    this.storedFields = event;
-    this.tableConfig.columnNames = this.storedFields;
-    this.filterConfig.columnNames = this.storedFields;
+  chooseColumnCategory(category) {
+    this.columnCategory = category;
+    let visibleCategories = [];
+    if(this.columnCategory==='stores') {
+      visibleCategories=visibleCategories.concat(this.tableColumns.stores.visibleColumns);
+    }else if(this.columnCategory==='programs') {
+      visibleCategories=visibleCategories.concat(this.tableColumns.stores.visibleColumns);
+      visibleCategories=visibleCategories.concat(this.tableColumns.programs.visibleColumns);
+    }else if(this.columnCategory==='fixtures') {
+        visibleCategories=visibleCategories.concat(this.tableColumns.stores.visibleColumns);
+        visibleCategories=visibleCategories.concat(this.tableColumns.programs.visibleColumns);
+        visibleCategories=visibleCategories.concat(this.tableColumns.fixtures.visibleColumns);
+     }else if (this.columnCategory==='elements') {
+        visibleCategories=visibleCategories.concat(this.tableColumns.stores.visibleColumns);
+        visibleCategories=visibleCategories.concat(this.tableColumns.programs.visibleColumns);
+        visibleCategories=visibleCategories.concat(this.tableColumns.fixtures.visibleColumns);
+        visibleCategories=visibleCategories.concat(this.tableColumns.elements.visibleColumns);
+     }
+    console.log(visibleCategories);
+    this.tableConfig.columnNames = visibleCategories;
+    this.filterConfig.columnNames = visibleCategories;
     this.tableConfig = Object.assign({}, this.tableConfig);
     this.filterConfig = Object.assign({}, this.filterConfig);
   }
 
+  // masterArrayHandler(event: any) {
+  //   this.storedFields = event;
+  //   this.tableConfig.columnNames = this.storedFields;
+  //   this.filterConfig.columnNames = this.storedFields;
+  //   this.tableConfig = Object.assign({}, this.tableConfig);
+  //   this.filterConfig = Object.assign({}, this.filterConfig);
+  // }
 
 }

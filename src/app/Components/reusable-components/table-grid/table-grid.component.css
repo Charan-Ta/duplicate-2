@@ -1,10 +1,14 @@
 .tableWrapper{
-    display: block;
     overflow-x:auto;
     overflow-y: hidden;
 }
+
+.table-header {
+    min-width: 100%;
+}
+
 .divTableRow {
-    display:inline-flex;
+    display: inline-flex;
 }
 
 .divTableHeading {

@@ -1,0 +1,306 @@
+{
+    "stores":
+    {
+        "availableColumns": [
+        {
+            "name": "Country",
+            "label": "Country"
+        },
+        {
+            "name": "SFOStoreID",
+            "label": "SFO Store ID"
+        },
+        {
+            "name": "AppleID",
+            "label": "Apple ID"
+        },
+        {
+            "name": "StoreName",
+            "label": "Store Name"
+        },
+        {
+            "name": "City",
+            "label": "City"
+        },
+        {
+            "name": "StoreAddressLine1",
+            "label": "Store Address Line 1"
+        },
+        {
+            "name": "StoreAddressLine2",
+            "label": "Store Address Line 2"
+        },
+        {
+            "name": "StoreAddressLine3",
+            "label": "Store Address Line 3"
+        },
+        {
+            "name": "Contract ID",
+            "label": "Contract ID"
+        },
+        {
+            "name": "DCOTAConnection",
+            "label": "DCOTA Connection"
+        },
+        {
+            "name": "District",
+            "label": "District"
+        },
+        {
+            "name": "GPSX",
+            "label": "GPS X"
+        },
+        {
+            "name": "GPSY",
+            "label": "GPS Y"
+        },
+        {
+            "name": "HQID",
+            "label": "HQ ID"
+        },
+        {
+            "name": "LocalizedStoreName",
+            "label": "Localized Store Name"
+        },
+        {
+            "name": "LocalizedDescription",
+            "label": "Localized Description"
+        },
+        {
+            "name": "Territory",
+            "label": "Territory"
+        },
+        {
+            "name": "ZipCode",
+            "label": "Zip Code"
+        }],
+        "visibleColumns": [
+        {
+            "name": "Country",
+            "label": "Country"
+        },
+        {
+            "name": "SFOStoreID",
+            "label": "SFO Store ID"
+        },
+        {
+            "name": "AppleID",
+            "label": "Apple ID"
+        },
+        {
+            "name": "StoreName",
+            "label": "Store Name"
+        },
+        {
+            "name": "City",
+            "label": "City"
+        }]
+    },
+    "programs":
+    {
+        "availableColumns": [
+        {
+            "name": "ProgramID",
+            "label": "Program ID"
+        },
+        {
+            "name": "ProgramStatus",
+            "label": "Program Status"
+        },
+        {
+            "name": "ProgramName",
+            "label": "Program Name"
+        },
+        {
+            "name": "InternetConnection",
+            "label": "Internet Connection"
+        },
+        {
+            "name": "NoOfCameras",
+            "label": "No of Cameras"
+        },
+        {
+            "name": "CustomerShowroom",
+            "label": "Customer Showroom"
+        },
+        {
+            "name": "ApplePresentation",
+            "label": "Apple Presentation"
+        },
+        {
+            "name": "AppointmentDate",
+            "label": "Appointment Date"
+        },
+        {
+            "name": "ApprovalStatus",
+            "label": "Approval Status"
+        },
+        {
+            "name": "ContentDistribution",
+            "label": "Content Distribution"
+        },
+        {
+            "name": "FundingAmount",
+            "label": "Funding Amount"
+        },
+        {
+            "name": "FundingType",
+            "label": "Funding Type"
+        },
+        {
+            "name": "CielingHeight",
+            "label": "Cieling Height"
+        },
+        {
+            "name": "White(+)",
+            "label": "White(+)"
+        },
+        {
+            "name": "LocalProgramName",
+            "label": "Local Program Name"
+        }],
+        "visibleColumns": [
+        {
+            "name": "ProgramID",
+            "label": "Program ID"
+        },
+        {
+            "name": "ProgramStatus",
+            "label": "Program Status"
+        },
+        {
+            "name": "ProgramName",
+            "label": "Program Name"
+        },
+        {
+            "name": "InternetConnection",
+            "label": "Internet Connection"
+        },
+        {
+            "name": "NoOfCameras",
+            "label": "No of Cameras"
+        }]
+    },
+    "fixtures":
+    {
+        "availableColumns": [
+        {
+            "name": "FixtureID",
+            "label": "Fixture ID"
+        },
+        {
+            "name": "FixtureStatus",
+            "label": "Fixture Status"
+        },
+        {
+            "name": "Fixture Type",
+            "label": "FixtureType"
+        },
+        {
+            "name": "FixtureSize",
+            "label": "Fixture Size"
+        },
+        {
+            "name": "TargetClosureDate",
+            "label": "Target Closure Date"
+        },
+        {
+            "name": "ActualClosureDate",
+            "label": "Actual Closure Date"
+        },
+        {
+            "name": "ActualInstallationDate",
+            "label": "Actual Installation Date"
+        },
+        {
+            "name": "FixtureClass",
+            "label": "Fixture Class"
+        },
+        {
+            "name": "FixtureDescription",
+            "label": "Fixture Description"
+        }],
+        "visibleColumns": [
+        {
+            "name": "FixtureID",
+            "label": "Fixture ID"
+        },
+        {
+            "name": "FixtureStatus",
+            "label": "Fixture Status"
+        },
+        {
+            "name": "Fixture Type",
+            "label": "FixtureType"
+        },
+        {
+            "name": "FixtureSize",
+            "label": "Fixture Size"
+        }]
+    },
+    "elements":
+    {
+        "availableColumns": [
+        {
+            "name": "ElementID",
+            "label": "Element ID"
+        },
+        {
+            "name": "ProductCode",
+            "label": "Product Code"
+        },
+        {
+            "name": "LOB",
+            "label": "LOB"
+        },
+        {
+            "name": "Description",
+            "label": "Description"
+        },
+        {
+            "name": "AssetType",
+            "label": "Asset Type"
+        },
+        {
+            "name": "Sizing",
+            "label": "Sizing"
+        },
+        {
+            "name": "SubLOB",
+            "label": "Sub LOB"
+        },
+        {
+            "name": "ElementType",
+            "label": "Element Type"
+        },
+        {
+            "name": "Vendor",
+            "label": "Vendor"
+        },
+        {
+            "name": "NonKitElement",
+            "label": "Non Kit Element"
+        },
+        {
+            "name": "Quantity",
+            "label": "Quantity"
+        }],
+        "visibleColumns": [
+        {
+            "name": "ElementID",
+            "label": "Element ID"
+        },
+        {
+            "name": "ProductCode",
+            "label": "Product Code"
+        },
+        {
+            "name": "LOB",
+            "label": "LOB"
+        },
+        {
+            "name": "Description",
+            "label": "Description"
+        }]
+    }
+}

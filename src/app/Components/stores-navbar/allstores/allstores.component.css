@@ -1,4 +1,3 @@
-
 .allstore-search {
     position: absolute;
     top: 120px;
@@ -11,13 +10,31 @@
     left: 100px;
 }
 
-.content-wrapper{
+.content-wrapper {
     padding: 0 15px;
     margin-top: 120px;
     width: 100%;
 }
 
-.grid{
-  width: 100%;
-  height: 300px;
+.button-wrapper {
+    display: flex;
+    padding: 15px 0px;
+}
+
+.btn-transparent {
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 5px;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn-active {
+    color: #fff;
+    background: #2196f3;
+}
+
+.grid {
+    width: 100%;
+    height: 300px;
 }

@@ -62,9 +62,6 @@ export class TableGridComponent implements OnInit, OnChanges {
   setTableConfig(res) {
     this.tableConfig = res;
     // Setting Default Parameters if the user hasn't passed any of the following
-    if (!this.tableConfig.tableHeadingHeight) {
-      this.tableConfig.tableHeadingHeight = 10;
-    } // in %
     if (!this.tableConfig.tableBodyHeight) {
       this.tableConfig.tableBodyHeight = 90;
     } // in %
@@ -98,7 +95,7 @@ export class TableGridComponent implements OnInit, OnChanges {
     this.columnWidth = [];
     if (this.tableConfig.columnNames) {
       for (let i = 0; i < this.tableConfig.columnNames.length; i++) {
-        this.columnWidth.push(($('.tableWrapper').width()) / this.tableConfig.columnNames.length);
+        this.columnWidth.push(($('.table-header').width()) / this.tableConfig.columnNames.length);
       }
     }
   }

@@ -67,5 +67,9 @@ export class StoresCollection extends Collection {
     this.makeURL();
     return this.http.post(this._url,filter);
   }
+
+  getTableColumns():Observable<any> {
+    return this.http.get('/assets/api/GetTableColumns.json');
+  }
   }
 
