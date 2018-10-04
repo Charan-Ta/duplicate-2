@@ -75,6 +75,7 @@
 
 .table-body {
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .table-body::-webkit-scrollbar {

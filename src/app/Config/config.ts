@@ -15,7 +15,6 @@ export const AdvanceFilterConfig = {
 
 export const AllStoresTableConfig = {
   tableHeight: 100, // in %(optional)
-  tableBodyHeight: 90, // in %(optional)
   tableWidth: 100, // in %(optional)
   cellPadding: 5, // in px(optional)
   cellMinWidth: 100, // in px(optional)

@@ -26,6 +26,7 @@ export class TableGridComponent implements OnInit, OnChanges {
   public faSort = faSort;
   public faSortDown = faCaretDown;
   public faSortUp = faCaretUp;
+  public tableBodyHeight;
   constructor(private renderer: Renderer, private collection: Collection) {
   }
 
@@ -62,9 +63,6 @@ export class TableGridComponent implements OnInit, OnChanges {
   setTableConfig(res) {
     this.tableConfig = res;
     // Setting Default Parameters if the user hasn't passed any of the following
-    if (!this.tableConfig.tableBodyHeight) {
-      this.tableConfig.tableBodyHeight = 90;
-    } // in %
     if (!this.tableConfig.tableWidth) {
       this.tableConfig.tableWidth = 100;
     } // in %
@@ -89,6 +87,7 @@ export class TableGridComponent implements OnInit, OnChanges {
   updateData(res) {
     this.lazyLoad = false;
     this._tableData = res;
+    this.tableBodyHeight = $('.tableWrapper').height()-$('.table-header').height();
   }
 
   setInitialColumnWidth() {
@@ -104,7 +103,7 @@ export class TableGridComponent implements OnInit, OnChanges {
     this.start = event.target;
     this.pressed = true;
     this.startX = event.pageX;
-    this.leftColIndex = $(this.start).parent().parent().index();
+    this.leftColIndex = $(this.start).parent().index();
     this.rightColIndex = this.leftColIndex + 1;
     this.leftColWidth = parseFloat(this.columnWidth[this.leftColIndex]);
     this.rightColWidth = parseFloat(this.columnWidth[this.rightColIndex]);

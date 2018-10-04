@@ -19,7 +19,7 @@
             <span class="ui-column-resizer" style="cursor:col-resize;" *ngIf="i!=tableConfig?.columnNames.length-1&& tableConfig?.resize" (mousedown)="onMouseDown($event)" (drag)="initResizableColumns($event)"></span>
         </div>
     </div>
-    <div class="table-body" [style.height.%]="tableConfig?.tableBodyHeight" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="handleScroll()" [scrollWindow]="false">
+    <div class="table-body" [style.height.px]="tableBodyHeight" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="handleScroll()" [scrollWindow]="false">
         <div *ngFor="let data of _tableData" class="divTableRow">
             <div class="divTableCell" *ngFor="let heading of tableConfig?.columnNames; let i=index; " [style.width.px]="columnWidth[i]" [style.minWidth.px]="tableConfig?.cellMinWidth" [style.padding.px]="tableConfig?.cellPadding">{{data[heading.name]}}</div>
         </div>
