@@ -27,6 +27,7 @@ export class TableGridComponent implements OnInit, OnChanges {
   public faSortDown = faCaretDown;
   public faSortUp = faCaretUp;
   public tableBodyHeight;
+  public favorites = [];
   constructor(private renderer: Renderer, private collection: Collection) {
   }
 
@@ -43,7 +44,7 @@ export class TableGridComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
     if (changes.collectionClass && changes.collectionClass.currentValue !== undefined) {
-      this.setProviderAndLoadData(changes.collectionClass.currentValue);
+      this.setProvider(changes.collectionClass.currentValue);
     }
     if (changes.tableConfig && changes.tableConfig.currentValue !== undefined) {
       this.setTableConfig(changes.tableConfig.currentValue);
@@ -51,11 +52,8 @@ export class TableGridComponent implements OnInit, OnChanges {
   }
 
   // set provider for collection and load first data
-  setProviderAndLoadData(res) {
+  setProvider(res) {
     ReflectiveInjector.resolveAndCreate([{ provide: Collection, useValue: res }]);
-    this.collection.load().subscribe(res => {
-      this.updateData(res);
-    });
   }
 
 
@@ -81,7 +79,14 @@ export class TableGridComponent implements OnInit, OnChanges {
     if (this.tableConfig.isFiltered) {
       this.filterData();
     }
+    this.loadData();
     this.setInitialColumnWidth();
+  }
+
+  loadData(){
+    this.collection.load(this.tableConfig.tableType).subscribe(res => {
+      this.updateData(res);
+    });
   }
 
   updateData(res) {
@@ -92,9 +97,16 @@ export class TableGridComponent implements OnInit, OnChanges {
 
   setInitialColumnWidth() {
     this.columnWidth = [];
+    let calculatedColWidth;
     if (this.tableConfig.columnNames) {
-      for (let i = 0; i < this.tableConfig.columnNames.length; i++) {
-        this.columnWidth.push(($('.table-header').width()) / this.tableConfig.columnNames.length);
+      if(this.tableConfig.tableType!='favorites') {
+      calculatedColWidth  = ($('.tableWrapper').width()) / (this.tableConfig.columnNames.length+1);
+    }
+    else {
+      calculatedColWidth  = ($('.tableWrapper').width()) / (this.tableConfig.columnNames.length);
+    }
+      for (let i = 0; i < this.tableConfig.columnNames.length+1; i++) {
+        this.columnWidth.push(calculatedColWidth);
       }
     }
   }
@@ -151,7 +163,7 @@ export class TableGridComponent implements OnInit, OnChanges {
 
   lazyLoadData(event) {
     if (event) {
-      this.collection.loadNext(this.tableConfig.isFiltered, this.tableConfig.filter).subscribe(res => {
+      this.collection.loadNext(this.tableConfig.isFiltered, this.tableConfig.filter, this.tableConfig.tableType).subscribe(res => {
         this._tableData = this._tableData.concat(res);
         if (res.length > 0) {
           this.collection.updateURLParams();
@@ -161,7 +173,7 @@ export class TableGridComponent implements OnInit, OnChanges {
   }
 
   sortData(event) {
-    this.collection.sort(event.column, event.order, this.tableConfig.isFiltered, this.tableConfig.filter).subscribe(res => {
+    this.collection.sort(event.column, event.order, this.tableConfig.isFiltered, this.tableConfig.filter, this.tableConfig.tableType).subscribe(res => {
       this._tableData = [];
       this._tableData = this._tableData.concat(res);
       if (this._tableData.length > 0) {
@@ -172,10 +184,22 @@ export class TableGridComponent implements OnInit, OnChanges {
 
   filterData() {
     if (this.tableConfig.isFiltered) {
-      this.collection.filter(this.tableConfig.filter).subscribe(res => {
+      this.collection.filter(this.tableConfig.filter, this.tableConfig.tableType).subscribe(res => {
         this._tableData = [];
         this._tableData = this._tableData.concat(res);
       });
     }
+  }
+
+  addToFavorites(data,event,i){
+      if(event.target.checked) {
+         this.favorites.push(data);
+      }
+      else {
+         this.favorites.splice(i,1);
+      }
+      this.collection.addToFavorites(data).subscribe(res => {
+        console.log(res);
+      });
   }
 }

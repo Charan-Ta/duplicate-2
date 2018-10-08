@@ -11,9 +11,10 @@ export abstract class Collection {
   abstract getURLParams();
   abstract updateURLParams();  
   abstract makeURL();
-  abstract load():Observable<any>;
-  abstract loadNext(isFiltered:boolean,filter:object):Observable<any>;
-  abstract sort(sortBy:string,sortOrder:string,isFiltered:boolean,filter:object):Observable<any>;
-  abstract filter(filter:object):Observable<any>;
+  abstract load(tableType:string):Observable<any>;
+  abstract loadNext(isFiltered:boolean,filter:object,tableType:string):Observable<any>;
+  abstract sort(sortBy:string,sortOrder:string,isFiltered:boolean,filter:object,tableType:string):Observable<any>;
+  abstract filter(filter:object,tableType:string):Observable<any>;
   abstract getTableColumns():Observable<any>;
+  abstract addToFavorites(stores:any):Observable<any>;
 }

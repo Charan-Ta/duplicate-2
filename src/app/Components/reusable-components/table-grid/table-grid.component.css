@@ -74,6 +74,7 @@
 }
 
 .table-body {
+    display: inline-block;
     overflow-y: auto;
     overflow-x: hidden;
 }

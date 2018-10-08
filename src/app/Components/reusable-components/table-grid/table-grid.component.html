@@ -1,6 +1,10 @@
 <div class="tableWrapper" [style.minWidth.%]="tableConfig?.tableWidth" [style.height.%]="tableConfig?.tableHeight">
     <div class="divTableRow table-header">
-        <div *ngFor="let heading of tableConfig?.columnNames; let i=index; " class="divTableHead divTableHeading" [style.width.px]="columnWidth[i]" [style.minWidth.px]="tableConfig?.cellMinWidth" [style.padding.px]="tableConfig?.cellPadding">
+        <div class="divTableHead divTableHeading" [style.width.px]="columnWidth[0]" [style.minWidth.px]="tableConfig?.cellMinWidth" [style.padding.px]="tableConfig?.cellPadding" *ngIf="tableConfig?.tableType!='favorites'">
+            <span>Add as favourite</span>
+            <span class="ui-column-resizer" style="cursor:col-resize;" *ngIf="tableConfig?.resize" (mousedown)="onMouseDown($event)" (drag)="initResizableColumns($event)"></span>
+        </div>
+        <div *ngFor="let heading of tableConfig?.columnNames; let i=index; " class="divTableHead divTableHeading" [style.width.px]="columnWidth[i+1]" [style.minWidth.px]="tableConfig?.cellMinWidth" [style.padding.px]="tableConfig?.cellPadding">
             <span>{{ heading.label }}</span>
             <div class="sort-wrapper" *ngIf="selectedSortColumn!=i && tableConfig?.sort">
                 <span (click)="sortBy(heading.name,'asc',i)" style="cursor: pointer;">
@@ -20,8 +24,11 @@
         </div>
     </div>
     <div class="table-body" [style.height.px]="tableBodyHeight" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="handleScroll()" [scrollWindow]="false">
-        <div *ngFor="let data of _tableData" class="divTableRow">
-            <div class="divTableCell" *ngFor="let heading of tableConfig?.columnNames; let i=index; " [style.width.px]="columnWidth[i]" [style.minWidth.px]="tableConfig?.cellMinWidth" [style.padding.px]="tableConfig?.cellPadding">{{data[heading.name]}}</div>
+        <div *ngFor="let data of _tableData; let i=index; " class="divTableRow">
+            <div class="divTableCell" [style.width.px]="columnWidth[0]" [style.minWidth.px]="tableConfig?.cellMinWidth" [style.padding.px]="tableConfig?.cellPadding" *ngIf="tableConfig?.tableType!='favorites'">
+                <input type="checkbox" (click)="addToFavorites(data,$event,i)">
+            </div>
+            <div class="divTableCell" *ngFor="let heading of tableConfig?.columnNames; let i=index; " [style.width.px]="columnWidth[i+1]" [style.minWidth.px]="tableConfig?.cellMinWidth" [style.padding.px]="tableConfig?.cellPadding">{{data[heading.name]}}</div>
         </div>
     </div>
 </div>

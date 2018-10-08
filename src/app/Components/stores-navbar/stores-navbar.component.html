@@ -2,7 +2,7 @@
   <div>
     <a routerLink='allstores' [queryParams]="{limit:50,startFrom:0}"
                           [routerLinkActive]="['nav-2-active']">All Stores</a>
-    <a routerLink='favorites' [routerLinkActive]="['nav-2-active']">Favorites</a>
+    <a routerLink='favorites' [queryParams]="{limit:50,startFrom:0}" [routerLinkActive]="['nav-2-active']">Favorites</a>
     <a routerLink='templates' [routerLinkActive]="['nav-2-active']">Templates</a>
     <a routerLink='saved-search-results' [routerLinkActive]="['nav-2-active']">Saved Search Results &#x25BE;</a>
     <a routerLink='saved-results' [routerLinkActive]="['nav-2-active']">Saved Results &#x25BE;</a>

@@ -77,7 +77,6 @@ export class AllstoresComponent implements OnInit {
         visibleCategories=visibleCategories.concat(this.tableColumns.fixtures.visibleColumns);
         visibleCategories=visibleCategories.concat(this.tableColumns.elements.visibleColumns);
      }
-    console.log(visibleCategories);
     this.tableConfig.columnNames = visibleCategories;
     this.filterConfig.columnNames = visibleCategories;
     this.tableConfig = Object.assign({}, this.tableConfig);

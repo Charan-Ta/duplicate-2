@@ -21,7 +21,20 @@ export const AllStoresTableConfig = {
   resize: true, // (optional)
   sort: true, // (optional)
   isFiltered: false, // (optional)
-  filter: null
+  filter: null,
+  tableType:'allStores'
+};
+
+export const StoresFavoritesTableConfig = {
+  tableHeight: 100, // in %(optional)
+  tableWidth: 100, // in %(optional)
+  cellPadding: 5, // in px(optional)
+  cellMinWidth: 100, // in px(optional)
+  resize: true, // (optional)
+  sort: true, // (optional)
+  isFiltered: false, // (optional)
+  filter: null,
+  tableType:'favorites'
 };
 
 export const BaseLineInformation = [{

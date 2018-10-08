@@ -55,32 +55,8 @@ function filterData(data,filter){
     return finalData;
 }
 
-
-router.get('/',(req, res, next)=>{
-    var limit= Number(req.query.limit);
-    var sorting = req.query.sortBy;
-    var sortdir = req.query.sortDir;
-    var startFrom = Number(req.query.startFrom);
-    var docx;
-    Store.find()
-    .exec()
-    .then(docs=>{
-       docs=sortData(docs,sortdir,sorting);
-       if((limit+startFrom)<=docs.length){
-            docx = docs.slice(startFrom,limit+startFrom);
-       }else{
-            docx=docs.slice(startFrom,docs.length);
-       }
-       res.status(200).json(docx);
-    }).catch(err =>{
-        res.status(500).json({
-            error: err
-        })
-    });
-});
-
 router.post('/',(req,res,next)=>{
-    var filter =req.body;
+    var filter =req.body.filter;
     var limit= Number(req.query.limit);
     var sorting = req.query.sortBy;
     var sortdir = req.query.sortDir;
@@ -90,7 +66,7 @@ router.post('/',(req,res,next)=>{
     Store.find()
     .exec()
     .then(docs=>{
-        if(Object.keys(filter).length>0)
+        if(filter&&Object.keys(filter).length>0)
         filteredData = filterData(docs,filter);
         else
         filteredData=docs;
@@ -103,6 +79,7 @@ router.post('/',(req,res,next)=>{
       res.status(201).json(docx);
     })
     .catch(err => {
+      console.log(err);
         res.status(500).json({
             error: err
         })
